@@ -20,23 +20,29 @@ def getlist():
     if request.method == 'POST':
         datastyle = request.get_json()
         datalist['style'] =  datastyle.get('style')
+        db = get_db()
+        cursor = db.cursor()
+        error = None
         if   datalist['style'] == 1 :
             #请求类型1，返回球形顶盖算例数据目录{'ID':'','CaseID':''}
-            db = get_db()
-            cursor = db.cursor()
-            error = None
             caselist = cursor.execute('SELECT CaseID,ID FROM tbCasesStruc1').fetchall()
             datalist['caselist'] = tup2dic(caselist,cursor.description)
             cursor.close()
         elif datalist['style'] == 2 :
             #请求类型2，返回内带平台球形顶盖算例数据目录{'ID':'','CaseID':''}
-            pass
+            caselist = cursor.execute('SELECT CaseID,ID FROM tbCasesStruc2').fetchall()
+            datalist['caselist'] = tup2dic(caselist,cursor.description)
+            cursor.close()
         elif datalist['style'] == 3 :
             #请求类型3，返回平顶盖算例数据目录{'ID':'','caseID':''}
-            pass
+            caselist = cursor.execute('SELECT CaseID,ID FROM tbCasesStruc3').fetchall()
+            datalist['caselist'] = tup2dic(caselist,cursor.description)
+            cursor.close()
         elif datalist['style'] == 4 :
             #请求类型4，返回SG-系列结构尺寸数据目录{'ID':'','caseID':''}
-            pass
+            caselist = cursor.execute('SELECT SG_ID,ID FROM tbCasesStruc1').fetchall()
+            datalist['caselist'] = tup2dic(caselist,cursor.description)
+            cursor.close()
         elif datalist['style'] == 5 :
             #请求类型5，返回SG-D-系列结构尺寸数据目录{'ID':'','caseID':''}
             pass
@@ -52,12 +58,6 @@ def getlist():
     else:
         response_list = datalist
         pass
-
-    def composelist(list):
-        outlist = []
-        for li in list:
-            outlist = outlist + li 
-        return outlist
 
     return jsonify(response_list)
 
@@ -75,6 +75,7 @@ def get_case():
     return jsonify(dict)
 
 def composedict(des,value):
+    '''将键值匹配为字典'''
     dict = {}
     for index,tup in enumerate(des):
         dict[tup[0]] = value[index]

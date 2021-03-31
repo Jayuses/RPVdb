@@ -41,7 +41,7 @@
             <br /><br /><br /><br />
             <el-container>
                 <el-aside width="250px" style="border-right: 2px solid #C0C0C0">
-                    <ViewAside :dataStyle="datastyle"></ViewAside>
+                    <ViewAside :dataStyle="datastyle" v-show="datastyle"></ViewAside>
                 </el-aside>
                 <el-main></el-main>
             </el-container>
@@ -57,7 +57,7 @@
     .el-aside {
         margin-left:21px;
         text-align: center;
-        line-height: 160px;
+        line-height: 10px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
     }
     .el-main {
@@ -82,6 +82,16 @@ export default {
         };
     },
 
+    computed: {
+        /*showtitle() {
+         * 显示列表标题
+            switch (this.datastyle) {
+                case 1: return ("球形顶盖");
+                case 2: return ("内带平台球形顶盖");
+                case 3: return ("平顶盖");
+            }
+        }*/
+    },
     components: {
         ViewAside
     }
