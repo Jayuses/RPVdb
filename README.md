@@ -34,10 +34,11 @@
 ### 项目进度  
 + 3.22-3.29 
     1. 前端主页面布局及部分内容的编写(Home.vue)。  
-    2. ViewAside.vue部分内容的编写，包括1)发送AJAX请求相关数据列表，显示在侧边栏中  
-                                       2)伴随父组件(Home.vue)请求指令动态变化（仍需调试）  
+    2. ViewAside.vue部分内容的编写，包括  
+       1. 发送AJAX请求相关数据列表，显示在侧边栏中  
+       2. 伴随父组件(Home.vue)请求指令动态变化（仍需调试）  
     3. 后端服务器搭建(__init__.py)以及数据库连接(db.py)，现已实现将ViewAside.vue请求数据列表发送至前端(getdata.py)
     4. 现项目基于vue.js与flask环境  
-    flask环境基于python3.8.5,新添加包有pypyodbc(用于读取.mdb数据库文件),flask_cors拓展(用于接收跨域请求)
-    vue.js由vue.cli搭建,新添加包有element-ui,axios(发送Ajax请求)
+        1. flask环境基于python3.8.5,新添加包有pypyodbc(用于读取.mdb数据库文件),flask_cors拓展(用于接收跨域请求)
+        2. vue.js由vue.cli搭建,新添加包有element-ui,axios(发送Ajax请求)
 
