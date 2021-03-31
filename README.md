@@ -12,7 +12,7 @@
 |　　　　|　　　|---getdata.py(getdata蓝图，根据请求从数据库中获取数据)  
 |　　　　|  
 |　　　　|---isntance/(包含.mdb数据库文件,未上传)  
-|  
+|　　　　|---requirement.txt   
 |-----rpvdb/(通过vue.cli 4.5.12 创建,作为前端界面)  
 |　　　　|---node_modules/（包含vue配置包，未上传）  
 |　　　　|-----src/  
