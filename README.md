@@ -6,25 +6,25 @@
 ### 项目布局  
 / RPVdb  
 |-----server/(后端服务器)  
-|       |---flaskr/(包含应用代码和文件)  
-|       |      |---__init__.py(应用工厂)  
-|       |      |---db.py(数据库操作)  
-|       |      |---getdata.py(getdata蓝图，根据请求从数据库中获取数据)  
-|       |  
-|       |---isntance/(包含.mdb数据库文件,未上传)  
+|　　　　|---flaskr/(包含应用代码和文件)  
+|　　　　|　　　|---__init__.py(应用工厂)  
+|　　　　|　　　|---db.py(数据库操作)  
+|　　　　|　　　|---getdata.py(getdata蓝图，根据请求从数据库中获取数据)  
+|　　　　|  
+|　　　　|---isntance/(包含.mdb数据库文件,未上传)  
 |  
 |-----rpvdb/(通过vue.cli 4.5.12 创建,作为前端界面)  
-|       |---node_modules/（包含vue配置包，未上传）  
-|       |-----src/  
-|       |      |---components/(组件包)  
-|       |      |        |---ViewAside.vue(用于'查看'选项卡的侧边栏组件)  
-|       |      |----router/(路由注册)  
-|       |      |        |---index.js  
-|       |      |---views/(与路由相关组件)  
-|       |      |        |---Home.vue(主界面组件)  
-|       |      |---App.vue  
-|       |      |---main.js  
-|       |---其他配置文件（未上传）  
+|　　　　|---node_modules/（包含vue配置包，未上传）  
+|　　　　|-----src/  
+|　　　　|　　　|---components/(组件包)  
+|　　　　|　　　|　　　　　|---ViewAside.vue(用于'查看'选项卡的侧边栏组件)  
+|　　　　|　　　|----router/(路由注册)  
+|　　　　|　　　|　　　　　|---index.js  
+|　　　　|　　　|---views/(与路由相关组件)  
+|　　　　|　　　|　　　　　|---Home.vue(主界面组件)  
+|　　　　|　　　|---App.vue  
+|　　　　|　　　|---main.js  
+|　　　　|---其他配置文件（未上传）  
 |  
 |-----README.md  
 
