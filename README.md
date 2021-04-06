@@ -20,8 +20,8 @@
 |　　　　|　　　|　　　　　|---ViewAside.vue(用于'查看'选项卡的侧边栏组件)  
 |　　　　|　　　|　　　　　|---ViewCase.vue  
 |　　　　|　　　|　　　　　|---Geom.vue  
-|　　　　|　　　|　　　　　|---Material.vue 
-|　　　　|　　　|　　　　　|---MaterDetial.vue
+|　　　　|　　　|　　　　　|---Material.vue  
+|　　　　|　　　|　　　　　|---MaterDetial.vue  
 |　　　　|　　　|　　　　　|---Load.vue  
 |　　　　|　　　|　　　　　|---Result.vue  
 |　　　　|　　　|----router/(路由注册)  
