@@ -1,16 +1,19 @@
 <template>
-    <el-table :data="showList"
+    <el-table :data="tableData.caselist"
                 style="width: 95%;line-height:10px;margin-left:10px"
-                height="450">
+                height="450"
+              @cell-dblclick="detail">
         <el-table-column prop="CaseID"
                             align="center"
-                            width="215">
+                            width="170">
         </el-table-column>
     </el-table>
 </template>
 
 <style>
-
+    .el-tabs--border-card > .el-tabs__content {
+        padding: 10px;
+    }
 </style>
 
 <script>
@@ -33,59 +36,47 @@
                     .then((res) => {
                         this.tableData = res.data;
                     })
-                    /*.catch((error) => {
-                        // eslint-disable-next-line
-                        console.error(error);
-                    });*/
+                /*.catch((error) => {
+                    // eslint-disable-next-line
+                    console.error(error);
+                });*/
             },
 
             postReq(payload) {
                 //发送数据请求，数据类型由dataStyle控制
                 const path = 'http://localhost:5000/getdata/list';
-                    axios.post(path, payload)
-                        .then(() => {
-                            this.getList()
-                        })
-                        /*.catch((error) => {
-                            // eslint-disable-next-line
-                            console.error(error);
-                            this.getList()
-                        });*/
+                axios.post(path, payload)
+                    .then(() => {
+                        this.getList()
+                    })
+                /*.catch((error) => {
+                    // eslint-disable-next-line
+                    console.error(error);
+                    this.getList()
+                });*/
             },
+
+            detail(row) {
+                let index = {
+                    style: this.dataStyle,
+                    index: row.CaseID
+                };
+                this.$emit('show-detail', index);
+
+            }
 
         },
 
-        computed: {
-            showList() {
-                //动态展示数据列表
-                let poststyle={ style: this.dataStyle }
+        watch: {
+            dataStyle(newstyle, oldstyle) {
+                let poststyle = { style: newstyle };
                 this.postReq(poststyle);
-                //var datalist = this.tableData['datalist'];
-                return   this.tableData.caselist
-            },
-
-            showName() {
-                //动态展示表名
-                switch (this.dataStyle) {
-                    case 1: return ('球形顶盖');
-                }
-            },
-
-            showClomn() {
-                //列名切换
-                switch (this.dataStyle) {
-                    case 1:
-                    case 2:
-                    case 3:
-                        return ("CaseID");
-                    case 4:
-                        return("SG_ID")
-                }
             }
         },
 
         /*created() {
-            this.postReq(this.poststyle);
+            let poststyle = { style: this.dataStyle };
+            this.postReq(poststyle);
         }*/
     };
 </script>

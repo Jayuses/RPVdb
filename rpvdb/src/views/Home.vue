@@ -5,30 +5,36 @@
                 <el-tabs type="border-card" value="first" >
                     <el-tab-pane label="查看" name="first">
                         <el-row :gutter="20">
-                            <el-col :span="7" style="border-right: 1px solid #C0C0C0">
+                            <el-col :span="11" style="border-right: 3px solid #C0C0C0">
                                 <h5>查看算例</h5>
                                 <span>
-                                    <el-button type="text" @click="datastyle=1"> 球形顶盖 </el-button>
-                                    <el-button type="text" @click="datastyle=2"> 内带平台球形顶盖 </el-button>
-                                    <el-button type="text" @click="datastyle=3"> 平顶盖 </el-button>
+                                    <el-row>
+                                        <el-col :span="6" :offset="3">
+                                            <el-button type="text" @click="datastyle=1"> 球形顶盖 </el-button>
+                                        </el-col>
+                                        <el-col :span="6">
+                                            <el-button type="text" @click="datastyle=2"> 内带平台球形顶盖 </el-button>
+                                        </el-col>
+                                        <el-col :span="6">
+                                            <el-button type="text" @click="datastyle=3"> 平顶盖 </el-button>
+                                        </el-col>
+                                    </el-row>
                                 </span>
                             </el-col>
-                            <el-col :span="7" style="border-right: 1px solid #C0C0C0">
-                                <h5>结构尺寸</h5>
+                            <el-col :span="4" style="border-right: 1px solid #C0C0C0">
+                                <!--<h5>结构尺寸</h5>-->
                                 <span>
-                                    <el-button type="text" @click="datastyle=4"> SG-系列 </el-button>
-                                    <el-button type="text" @click="datastyle=5"> SG-D-系列 </el-button>
-                                    <el-button type="text" @click="datastyle=6"> 其他 </el-button>
+                                    <el-button type="text" @click="datastyle=4"> 结构尺寸库 </el-button>
                                 </span>
                             </el-col>
-                            <el-col :span="5" style="border-right: 1px solid #C0C0C0">
-                                <h5>结构材料</h5>
+                            <el-col :span="4" style="border-right: 1px solid #C0C0C0">
+                                <!--<h5>结构材料</h5>-->
                                 <span>
-                                    <el-button type="text" @click="datastyle=7"> 材料库 </el-button>
+                                    <el-button type="text" @click="datastyle=7"> 结构材料库 </el-button>
                                 </span>
                             </el-col>
-                            <el-col :span="5">
-                                <h5>加载工况</h5>
+                            <el-col :span="4">
+                                <!--<h5>加载工况</h5>-->
                                 <span>
                                     <el-button type="text" @click="datastyle=8"> 加载工况库 </el-button>
                                 </span>
@@ -40,10 +46,12 @@
             </el-header>
             <br /><br /><br /><br />
             <el-container>
-                <el-aside width="250px" style="border-right: 2px solid #C0C0C0">
-                    <ViewAside :dataStyle="datastyle" v-show="datastyle"></ViewAside>
+                <el-aside width="200px" style="border-right: 2px solid #C0C0C0">
+                    <ViewAside :dataStyle="datastyle" v-show="datastyle" @show-detail="viewIndex=$event"></ViewAside>
                 </el-aside>
-                <el-main></el-main>
+                <el-main>
+                    <ViewCase :index="viewIndex" style="line-height:10px"></ViewCase>
+                </el-main>
             </el-container>
         </el-container>
     </div>
@@ -52,34 +60,50 @@
 <style>
     .el-header {
         text-align: center;
+        margin-left: 21px;
+        margin-right: 21px;
         line-height: 100%;
+        float: right;
+        padding: 0;
     }
     .el-aside {
-        margin-left:21px;
+        margin-left: 21px;
         text-align: center;
         line-height: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+        float: right;
+        clear:both;
     }
     .el-main {
         margin-right: 21px;
         text-align: center;
         line-height: 160px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+        padding-top:10px;
     }
     h5{
         margin-top:4px;
         margin-bottom:4px;
     }
+    .el-col-4 {
+        line-height:60px;
+    }
 </style>
 
 <script>
 import ViewAside from '../components/ViewAside.vue'
+import ViewCase from '../components/ViewCase.vue'
 export default {
     name: 'Home',
     data() {
         return {
-            datastyle:1
+            datastyle: 0,
+            viewIndex: { style: 1, index:'SPS1-专家-H-1005'}
         };
+    },
+
+    methods: {
+        
     },
 
     computed: {
@@ -93,7 +117,8 @@ export default {
         }*/
     },
     components: {
-        ViewAside
+        ViewAside,
+        ViewCase,
     }
 }
 </script>
