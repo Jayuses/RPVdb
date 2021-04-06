@@ -21,7 +21,7 @@
 |　　　　|　　　|　　　　　|---ViewCase.vue  
 |　　　　|　　　|　　　　　|---Geom.vue  
 |　　　　|　　　|　　　　　|---Material.vue  
-|　　　　|　　　|　　　　　|---MaterDetial.vue  
+|　　　　|　　　|　　　　　|---MaterDetail.vue  
 |　　　　|　　　|　　　　　|---Load.vue  
 |　　　　|　　　|　　　　　|---Result.vue  
 |　　　　|　　　|----router/(路由注册)  
@@ -37,12 +37,15 @@
 ***
 ### 组件树
 
-<kbd>Home</kbd>
-|  
-|---<kbd>ViewAside</kbd>  
-|  
-|---<kbd>ViewCase</kbd>  
-|　　　|
+<kbd>Home</kbd>  
+　|---<kbd>ViewAside</kbd>  
+　|---<kbd>ViewCase</kbd>  
+　|　　　|---<kbd>Gemo</kbd>  
+　|　　　|---<kbd>Material</kbd>  
+　|　　　|　　　|---<kbd>MaterDetail</kbd>
+　|　　　|---<kbd>ViewCase</kbd>
+　|　　　|---<kbd>Load</kbd>
+　|　　　|---<kbd>Result</kbd>
 
 ***
 
