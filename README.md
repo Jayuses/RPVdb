@@ -41,11 +41,11 @@
 　|---<kbd>ViewAside</kbd>  
 　|---<kbd>ViewCase</kbd>  
 　|　　　|---<kbd>Gemo</kbd>  
-　|　　　|---<kbd>Material</kbd>  
-　|　　　|　　　|---<kbd>MaterDetail</kbd>
-　|　　　|---<kbd>ViewCase</kbd>
-　|　　　|---<kbd>Load</kbd>
-　|　　　|---<kbd>Result</kbd>
+　|　　　|---<kbd>Material</kbd>    
+　|　　　|　　　|---<kbd>MaterDetail</kbd>  
+　|　　　|---<kbd>ViewCase</kbd>  
+　|　　　|---<kbd>Load</kbd>  
+　|　　　|---<kbd>Result</kbd>  
 
 ***
 
