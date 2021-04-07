@@ -40,10 +40,9 @@
 <kbd>Home</kbd>  
 　|---<kbd>ViewAside</kbd>  
 　|---<kbd>ViewCase</kbd>  
-　|　　　|---<kbd>Gemo</kbd>  
+　|　　　|---<kbd>Geom</kbd>  
 　|　　　|---<kbd>Material</kbd>    
-　|　　　|　　　|---<kbd>MaterDetail</kbd>  
-　|　　　|---<kbd>ViewCase</kbd>  
+　|　　　|　　　|---<kbd>MaterDetail</kbd>   
 　|　　　|---<kbd>Load</kbd>  
 　|　　　|---<kbd>Result</kbd>  
 
