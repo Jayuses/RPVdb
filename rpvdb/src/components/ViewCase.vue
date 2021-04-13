@@ -1,10 +1,10 @@
 ﻿<template>
-    <el-tabs v-model="activeName" >
-        <el-tab-pane label="仿真参数" name="first">
-            <div>
-                <el-tabs :tab-position="tabPosition" style="height: 200px;">
+    <el-tabs v-model="activeName">
+        <el-tab-pane label="仿真参数" name="first" >
+            <div >
+                <el-tabs :tab-position="tabPosition" style="height: 360px;">
                     <el-tab-pane class="righttab" label="结构参数">
-                        <Geom :geomIndex="caseData.SG_ID"></Geom>
+                        <Geom :geomIndex="geomIndex"></Geom>
                     </el-tab-pane>
                     <el-tab-pane class="righttab" label="结构材料">
                         <Material :materInfor="materInfor"></Material>
@@ -22,9 +22,10 @@
 </template>
 
 <style>
-    .righttab{
-        padding-right:0;
+    .righttab {
+        padding-right: 0;
     }
+    
 </style>
 
 <script>
@@ -43,7 +44,8 @@
                 tabPosition: 'right',
                 dialogVisible: false,
                 materInfor: {},
-                loadIndex: {}
+                loadIndex: {},
+                geomIndex: {}
             };
         },
 
@@ -76,17 +78,6 @@
             },
         },
 
-        computed: {
-            dingGai() {
-                if (this.index.style == 1)
-                    return ("球形顶盖");
-                else if (this.index.style == 2)
-                    return ("内带平台球形顶盖");
-                else  (this.index.style == 3)
-                    return ("平顶盖");
-            },
-        },
-
         watch: {
             index: {
                 handler(newindex, oldindex) {
@@ -105,11 +96,16 @@
                         MBolt: newindex.MBolt,
                         MBoltAM: newindex.MBoltAM,
                         MLayer: newindex.MLayer,
-                        MLayerAM: newindex.MLayerAM
+                        MLayerAM: newindex.MLayerAM,
+                        style: this.index.style
                     };
                     this.loadIndex = {
                         style: this.index.style,
                         index: newindex.LC_ID
+                    };
+                    this.geomIndex = {
+                        style: this.index.style,
+                        index: newindex.SG_ID
                     };
                 },
                 deep: true,

@@ -33,4 +33,8 @@ def create_app(test_config=None):
     from . import getdata
     app.register_blueprint(getdata.bp)
 
+    #注册'login'蓝图
+    from . import login
+    app.register_blueprint(login.bp)
+
     return app

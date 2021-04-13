@@ -89,11 +89,24 @@ def get_gemo():
     response_data = {'status':'defeat'}
     if request.method == 'POST':
         index = request.get_json().get('index')
+        style = request.get_json().get('style')
         db = get_db()
         cursor = db.cursor()
-        geom = cursor.execute(
+        if style == 1:
+            geom = cursor.execute(
                 "SELECT * FROM tbStrucGeom1 WHERE SG_ID = '%s'" %(index)).fetchone()
-        detaildata['geom'] = composedict(cursor.description,geom)
+            detaildata['geom'] = composedict(cursor.description,geom)
+            cursor.close()
+        elif style == 2:
+            geom = cursor.execute(
+                "SELECT * FROM tbStrucGeom2 WHERE SG_ID = '%s'" %(index)).fetchone()
+            detaildata['geom'] = composedict(cursor.description,geom)
+            cursor.close()
+        elif style == 3:
+            geom = cursor.execute(
+                "SELECT * FROM tbStrucGeom3 WHERE SG_ID = '%s'" %(index)).fetchone()
+            detaildata['geom'] = composedict(cursor.description,geom)
+            cursor.close()
     else:
         response_data = detaildata['geom']
     return jsonify(response_data)
@@ -117,7 +130,7 @@ def get_mater():
                 "SELECT Temperature,Variable FROM tbCTE WHERE MaterID = '%s'" %(index)).fetchall()
         #密度
         density = cursor.execute(
-                "SELECT Temperature,Variable FROM tbDensity WHERE MaterID = '%s'" %(index)).fetchall()
+                "SELECT Temperature,Variable*1E+10 FROM tbDensity WHERE MaterID = '%s'" %(index)).fetchall()
         #弹性模量
         elastic = cursor.execute(
                 "SELECT Temperature,Variable FROM tbElastic WHERE MaterID = '%s'" %(index)).fetchall()
@@ -132,14 +145,14 @@ def get_mater():
                 "SELECT Temperature,Variable FROM tbYield WHERE MaterID = '%s'" %(index)).fetchall()
         des = cursor.description
         detaildata['mater'] = {
-            'capacity':tup2dic(capacity,des),
-            'conductivity':tup2dic(conductivity,des),
-            'CTE':tup2dic(CTE,des),
-            'density':tup2dic(density,des),
-            'elastic':tup2dic(elastic,des),
-            'possion':tup2dic(possion,des),
-            'tangent':tup2dic(tangent,des),
-            'yie':tup2dic(yie,des),
+            'capacity':capacity,
+            'conductivity':conductivity,
+            'CTE':CTE,
+            'density':density,
+            'elastic':elastic,
+            'possion':possion,
+            'tangent':tangent,
+            'yie':yie,
             }
         cursor.close()
     else:
@@ -176,7 +189,7 @@ def get_load():
                     "SELECT Time,Temperature,Pressure FROM tbLoadTP2 WHERE LC_ID = '%s'" %(index)).fetchall()
             detaildata['load'] = {
                 'loadCon':loadcon,
-                'loadTP':tup2dic(loadtp)
+                'loadTP':tup2dic(loadtp,cursor.description)
                 }
             cursor.close()
         elif style == 3:
@@ -187,7 +200,7 @@ def get_load():
                     "SELECT Time,Temperature,Pressure FROM tbLoadTP3 WHERE LC_ID = '%s'" %(index)).fetchall()
             detaildata['load'] = {
                 'loadCon':loadcon,
-                'loadTP':tup2dic(loadtp)
+                'loadTP':tup2dic(loadtp,cursor.description)
                 }
             cursor.close()
         else:
@@ -216,7 +229,7 @@ def get_result():
                     "SELECT * FROM tbResultsStruc2 WHERE CaseID = '%s'" %(index)).fetchall()
             detaildata['result'] = tup2dic(result,cursor.description)
             cursor.close()
-        elif style == 2:
+        elif style == 3:
             result = cursor.execute(
                     "SELECT * FROM tbResultsStruc3 WHERE CaseID = '%s'" %(index)).fetchall()
             detaildata['result'] = tup2dic(result,cursor.description)
@@ -233,8 +246,18 @@ def composedict(des,value):
     return dict
 
 def tup2dic(tup,des):
-    '''输入元组，输出对象'''
+    '''输入元组，输出对象列表'''
     outlist = []
     for t in tup:
         outlist.append(composedict(des,t))
     return outlist
+
+def list2dic(tup,des):
+    '''输入元组，输出列表对象'''
+    list1 = []
+    list2 = []
+    for t in tup:
+        list1.append(t[0])
+        list2.append(t[1])
+    outlist = [list1,list2]
+    return composedict(des,outlist)

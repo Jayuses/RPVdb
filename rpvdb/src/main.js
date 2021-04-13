@@ -3,6 +3,8 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import App from './App.vue'
 import router from './router'
+import Login from './views/Login.vue'
+import Home from './views/Home.vue'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
