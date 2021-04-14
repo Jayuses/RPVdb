@@ -1,7 +1,6 @@
 ﻿<template>
     <div>
         <h4 style="margin:0">{{materIndex}}</h4>
-        <p>{{materData}}</p>
         <el-tabs>
             <el-tab-pane label="物理性能">
                 <el-tabs tab-position="left">
@@ -45,7 +44,6 @@
 <script>
     import axios from 'axios';
     import MaterChart from './MaterChart.vue';
-    import hello from './hello.vue';
     export default {
         name: 'MaterDetail',
         props: {'materIndex':String},
@@ -96,7 +94,6 @@
 
         components: {
             MaterChart,
-            hello
         }
     };
 </script>

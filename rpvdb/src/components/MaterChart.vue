@@ -42,8 +42,8 @@
                         type: 'value'
                     },
                     dataset: {
-                        source: this.chartData
-                    },
+                        source: [[20, 78], [100, 78], [200, 78], [300, 78], [350, 78]] 
+                    },          
                     series: [
                         {
                             type: 'scatter',
@@ -66,7 +66,7 @@
         methods: {
             drawLine() {
                 var myChart = echarts.init(document.getElementById('main'));
-                myChart.setOption(this.options());       
+                myChart.setOption(this.option);   
             }
         }
     }

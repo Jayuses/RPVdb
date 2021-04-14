@@ -178,7 +178,7 @@ def get_load():
             #输出载荷条件和温度压力
             detaildata['load'] = {
                 'loadCon':loadcon,
-                'loadTP':tup2dic(loadtp,cursor.description)
+                'loadTP':loadtp
                 }
             cursor.close()
         elif style == 2:
@@ -219,21 +219,8 @@ def get_result():
         index = resultIndex.get('index')
         db = get_db()
         cursor = db.cursor()
-        if style == 1:
-            result = cursor.execute(
-                    "SELECT * FROM tbResultsStruc1 WHERE CaseID = '%s'" %(index)).fetchall()
-            detaildata['result'] = tup2dic(result,cursor.description)
-            cursor.close()
-        elif style == 2:
-            result = cursor.execute(
-                    "SELECT * FROM tbResultsStruc2 WHERE CaseID = '%s'" %(index)).fetchall()
-            detaildata['result'] = tup2dic(result,cursor.description)
-            cursor.close()
-        elif style == 3:
-            result = cursor.execute(
-                    "SELECT * FROM tbResultsStruc3 WHERE CaseID = '%s'" %(index)).fetchall()
-            detaildata['result'] = tup2dic(result,cursor.description)
-            cursor.close()
+        detaildata['result'] = getResult(cursor,style)
+        cursor.close()
     else:
         response_data = detaildata['result']
     return jsonify(response_data)
@@ -261,3 +248,67 @@ def list2dic(tup,des):
         list2.append(t[1])
     outlist = [list1,list2]
     return composedict(des,outlist)
+
+def getResult(cursor,type):
+    '''获取分类完好的算例结果'''
+    table = 'tbResultsStruc'+str(type)
+    JX_IN1 = cursor.execute(
+             "SELECT Time,JX_IN FROM '%s' WHERE CaseID = '%s' AND Time<=2" %(table,index)).fetchall()
+    JX_IN2 = cursor.execute(
+             "SELECT Time,JX_IN FROM '%s' WHERE CaseID = '%s' AND Time>=2" %(table,index)).fetchall()
+    ZX_IN1 = cursor.execute(
+             "SELECT Time,ZX_IN FROM '%s' WHERE CaseID = '%s' AND Time<=2" %(table,index)).fetchall()
+    ZX_IN2 = cursor.execute(
+             "SELECT Time,ZX_IN FROM '%s' WHERE CaseID = '%s' AND Time>=2" %(table,index)).fetchall()
+    ZX_OUT1 = cursor.execute(
+             "SELECT Time,ZX_OUT FROM '%s' WHERE CaseID = '%s' AND Time<=2" %(table,index)).fetchall()
+    ZX_OUT2 = cursor.execute(
+             "SELECT Time,ZX_OUT FROM '%s' WHERE CaseID = '%s' AND Time>=2" %(table,index)).fetchall()
+    JX_OUT1 = cursor.execute(
+             "SELECT Time,JX_OUT FROM '%s' WHERE CaseID = '%s' AND Time<=2" %(table,index)).fetchall()
+    JX_OUT2 = cursor.execute(
+             "SELECT Time,JX_OUT FROM '%s' WHERE CaseID = '%s' AND Time>=2" %(table,index)).fetchall()
+    ZJ_U1 = cursor.execute(
+             "SELECT Time,ZJ_U FROM '%s' WHERE CaseID = '%s' AND Time<=2" %(table,index)).fetchall()
+    ZJ_U2 = cursor.execute(
+             "SELECT Time,ZJ_U FROM '%s' WHERE CaseID = '%s' AND Time>=2" %(table,index)).fetchall()
+    ZJ_D1 = cursor.execute(
+             "SELECT Time,ZJ_D FROM '%s' WHERE CaseID = '%s' AND Time<=2" %(table,index)).fetchall()
+    ZJ_D2 = cursor.execute(
+             "SELECT Time,ZJ_D FROM '%s' WHERE CaseID = '%s' AND Time>=2" %(table,index)).fetchall()
+    FL_JXWYL1 = cursor.execute(
+             "SELECT Time,FL_JXWYL FROM '%s' WHERE CaseID = '%s' AND Time<=2" %(table,index)).fetchall()
+    FL_JXWYL2 = cursor.execute(
+             "SELECT Time,FL_JXWYL FROM '%s' WHERE CaseID = '%s' AND Time>=2" %(table,index)).fetchall()
+    FL_ZKL1 = cursor.execute(
+             "SELECT Time,FL_ZKL FROM '%s' WHERE CaseID = '%s' AND Time<=2" %(table,index)).fetchall()
+    FL_ZKL2 = cursor.execute(
+             "SELECT Time,FL_ZKL FROM '%s' WHERE CaseID = '%s' AND Time>=2" %(table,index)).fetchall()
+    LS_YJL1 = cursor.execute(
+             "SELECT Time,LS_YJL FROM '%s' WHERE CaseID = '%s' AND Time<=2" %(table,index)).fetchall()
+    LS_YJL2 = cursor.execute(
+             "SELECT Time,LS_YJL FROM '%s' WHERE CaseID = '%s' AND Time>=2" %(table,index)).fetchall()
+    result = {
+        'JX_IN1':JX_IN1,
+        'JX_IN2':JX_IN2,
+        'ZX_IN1':ZX_IN1,
+        'ZX_IN2':ZX_IN2,
+        'ZX_OUT1':ZX_OUT1,
+        'ZX_OUT2':ZX_OUT2,
+        'JX_OUT1':JX_OUT1,
+        'JX_OUT2':JX_OUT2,
+        'ZJ_U1':ZJ_U1,
+        'ZJ_U2':ZJ_U2,
+        'ZJ_D1':ZJ_D1,
+        'ZJ_D2':ZJ_D2,
+        'FL_JXWYL1':FL_JXWYL1,
+        'FL_JXWYL2':FL_JXWYL2,
+        'FL_ZKL1':FL_ZKL1,
+        'FL_ZKL2':FL_ZKL2,
+        'LS_YJL1':LS_YJL1,
+        'LS_YJL2':LS_YJL2,
+        }
+    return result
+
+
+

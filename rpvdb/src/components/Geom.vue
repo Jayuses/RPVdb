@@ -5,8 +5,7 @@
                 <el-button type="text" @click="dialogVisible = true">{{dingGai}}密封</el-button>
                 <el-dialog :title="dingGai"
                            :visible.sync="dialogVisible"
-                           width="30%"
-                           :before-close="handleClose">
+                           width="30%">
                     <el-image :src="dingGai_url"></el-image>
                 </el-dialog>
             </span>
