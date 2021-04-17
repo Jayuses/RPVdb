@@ -1,73 +1,98 @@
-<template>
+ï»¿<template>
     <div>
-        <p>{{chartData}}</p>
-        <div id="main" style="width: 400px;height:400px;"></div>
+        <div ref="main" style="width: 600px;height:350px;"></div>
     </div>
 </template>
 
 <script>
-    // ÒıÈë echarts ºËĞÄÄ£¿é£¬ºËĞÄÄ£¿éÌá¹©ÁË echarts Ê¹ÓÃ±ØĞëÒªµÄ½Ó¿Ú¡£
+    // å¼•å…¥ echarts æ ¸å¿ƒæ¨¡å—ï¼Œæ ¸å¿ƒæ¨¡å—æä¾›äº† echarts ä½¿ç”¨å¿…é¡»è¦çš„æ¥å£ã€‚
     import * as echarts from 'echarts/core';
-    // ÒıÈëÕÛÏßÍ¼£¬É¢µãÍ¼Í¼±í£¬Í¼±íºó×º¶¼Îª Chart
+    // å¼•å…¥æŠ˜çº¿å›¾ï¼Œæ•£ç‚¹å›¾å›¾è¡¨ï¼Œå›¾è¡¨åç¼€éƒ½ä¸º Chart
     import {
         LineChart,
         ScatterChart,
     } from 'echarts/charts';
-    // ÒıÈëÌáÊ¾¿ò£¬±êÌâ£¬Ö±½Ç×ø±êÏµ×é¼ş£¬×é¼şºó×º¶¼Îª Component
+    // å¼•å…¥æç¤ºæ¡†ï¼Œæ ‡é¢˜ï¼Œç›´è§’åæ ‡ç³»ç»„ä»¶ï¼Œç»„ä»¶åç¼€éƒ½ä¸º Component
     import {
         TitleComponent,
         TooltipComponent,
         GridComponent,
     } from 'echarts/components';
-    // ÒıÈë Canvas äÖÈ¾Æ÷£¬×¢ÒâÒıÈë CanvasRenderer »òÕß SVGRenderer ÊÇ±ØĞëµÄÒ»²½
+    // å¼•å…¥ Canvas æ¸²æŸ“å™¨ï¼Œæ³¨æ„å¼•å…¥ CanvasRenderer æˆ–è€… SVGRenderer æ˜¯å¿…é¡»çš„ä¸€æ­¥
     import {
         CanvasRenderer
     } from 'echarts/renderers';
-
-     //×¢²á±ØĞëµÄ×é¼ş
+    //æ³¨å†Œå¿…é¡»çš„ç»„ä»¶
     echarts.use(
-        [TitleComponent, TooltipComponent, GridComponent,LineChart, ScatterChart, CanvasRenderer]
+        [TitleComponent, TooltipComponent, GridComponent, LineChart, ScatterChart, CanvasRenderer]
     );
-     //vueÎÄ¼şÖĞÒıÈëecharts¹¤¾ß
     export default {
         name: 'MaterChart',
-        props: ['chartData'] ,
+        props: [ 'chartData','materUnit'] ,
         data() {
-            return { 
+            return {
                 option: {
+                    grid: {
+                        top: '10%',
+                        left:'15%'
+                    },
+                    tooltip: {
+                        trigger:'axis'
+                    },
                     xAxis: {
-                        type: 'value',
+                        name: 'Temperature/â„ƒ',
+                        nameLocation: 'middle',
+                        nameTextStyle: {
+                            fontWeight: 'bold',
+                            fontSize: 14,
+                            lineHeight: 10,
+                            padding:[12,5,5,5]
+                        }
                     },
                     yAxis: {
-                        type: 'value'
+                        name:'',
+                        nameLocation: 'end',
+                        nameTextStyle: {
+                            fontWeight: 'bold',
+                            fontSize: 14,
+                            lineHeight: 10,
+                            padding: [5, 5, 5, 12]
+                        }
                     },
-                    dataset: {
-                        source: [[20, 78], [100, 78], [200, 78], [300, 78], [350, 78]] 
-                    },          
                     series: [
                         {
-                            type: 'scatter',
-                            symbol: 'circle',
-                            encode: { x: 0, y: 1 }
+                            type: "line",
+                            data: [],
+                            symbolSize:5
                         },
-                        {
-                            type: 'line',
-                            encode: { x: 0, y: 1 }
-                        }
                     ]
                 }
             }
         },
 
         mounted() {
-            this.drawLine()
+            this.drawLine(this.chartData,this.materUnit)
         },
 
         methods: {
-            drawLine() {
-                var myChart = echarts.init(document.getElementById('main'));
-                myChart.setOption(this.option);   
+            drawLine(data,unit) {
+                var myChart = echarts.init(this.$refs.main);
+                var chart_option = this.option;
+                chart_option.series[0].data = data;
+                chart_option.yAxis.name = unit;
+                myChart.setOption(chart_option);   
+            },
+
+        },
+
+        watch: {
+            chartData: {
+                handler(newdata, olddata) {
+                    this.drawLine(newdata, this.materUnit)
+                },
+                deep: true,
+                immediate: false,
             }
-        }
+        },
     }
 </script>

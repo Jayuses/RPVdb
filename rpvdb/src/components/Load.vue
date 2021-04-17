@@ -1,10 +1,10 @@
 ﻿<template>
-    <div>
+    <div v-if="loadData.loadCon">
         <br />
         <p class="load-title">
             <span>加载工况库</span>
-            <span style="margin-left:30px;">{{loadIndex.index}}</span>
-            <span style="margin-left:30px;">{{loadData.loadCon.LT}}</span>
+            <span style="margin-left:30px;" >{{loadIndex.index}}</span>
+            <span style="margin-left:30px;" >{{loadData.loadCon.LT}}</span>
         </p>
         <table border="1" width="70%" align="center" cellpadding="8" cellspacing="0" class="the-table">
             <tr>
@@ -58,7 +58,7 @@
                     <el-image :src="url4"></el-image>
                 </el-tab-pane>
                 <el-tab-pane label="T(P)-t图">
-                    <TP :tpData="loadData.loadTP"></TP>
+                    <TP :tpData="tpdata"></TP>
                 </el-tab-pane>
             </el-tabs>
         </el-dialog>
@@ -120,7 +120,6 @@
                         console.error(error);
                     });
             },
-
             postIndex(payload) {
                 //发送数据请求
                 const path = 'http://localhost:5000/getdata/load';
@@ -168,6 +167,13 @@
                     return require('../assets/image/path2/内带平台球形顶盖-温度加载示意图.png')
                 else if (this.loadIndex.style == 3)
                     return require('../assets/image/path3/平顶盖-温度加载示意图.png')
+            },
+
+            tpdata() {
+                return {
+                    tData: this.loadData.loadT,
+                    pData: this.loadData.loadP
+                }
             }
         },
 
@@ -180,7 +186,7 @@
             }
         },
 
-        component:{
+        components:{
             TP
         }
     };

@@ -173,34 +173,45 @@ def get_load():
             loadcondition = cursor.execute(
                     "SELECT * FROM tbLoadCon1 WHERE LC_ID = '%s'" %(index)).fetchone()
             loadcon = composedict(cursor.description,loadcondition)
-            loadtp = cursor.execute(
-                    "SELECT Time,Temperature,Pressure FROM tbLoadTP1 WHERE LC_ID = '%s'" %(index)).fetchall()
+            loadt = cursor.execute(
+                    "SELECT Time,Temperature FROM tbLoadTP1 WHERE LC_ID = '%s'" %(index)).fetchall()
+            loadp = cursor.execute(
+                    "SELECT Time,Pressure FROM tbLoadTP1 WHERE LC_ID = '%s'" %(index)).fetchall()
             #输出载荷条件和温度压力
             detaildata['load'] = {
                 'loadCon':loadcon,
-                'loadTP':loadtp
+                'loadT':loadt,
+                'loadP':loadp
                 }
             cursor.close()
         elif style == 2:
             loadcondition = cursor.execute(
                     "SELECT * FROM tbLoadCon2 WHERE LC_ID = '%s'" %(index)).fetchone()
             loadcon = composedict(cursor.description,loadcondition)
-            loadtp = cursor.execute(
-                    "SELECT Time,Temperature,Pressure FROM tbLoadTP2 WHERE LC_ID = '%s'" %(index)).fetchall()
+            loadt = cursor.execute(
+                    "SELECT Time,Temperature FROM tbLoadTP2 WHERE LC_ID = '%s'" %(index)).fetchall()
+            loadp = cursor.execute(
+                    "SELECT Time,Pressure FROM tbLoadTP2 WHERE LC_ID = '%s'" %(index)).fetchall()
+            #输出载荷条件和温度压力
             detaildata['load'] = {
                 'loadCon':loadcon,
-                'loadTP':tup2dic(loadtp,cursor.description)
+                'loadT':loadt,
+                'loadP':loadp
                 }
             cursor.close()
         elif style == 3:
             loadcondition = cursor.execute(
                     "SELECT * FROM tbLoadCon3 WHERE LC_ID = '%s'" %(index)).fetchone()
             loadcon = composedict(cursor.description,loadcondition)
-            loadtp = cursor.execute(
-                    "SELECT Time,Temperature,Pressure FROM tbLoadTP3 WHERE LC_ID = '%s'" %(index)).fetchall()
+            loadt = cursor.execute(
+                    "SELECT Time,Temperature FROM tbLoadTP3 WHERE LC_ID = '%s'" %(index)).fetchall()
+            loadp = cursor.execute(
+                    "SELECT Time,Pressure FROM tbLoadTP3 WHERE LC_ID = '%s'" %(index)).fetchall()
+            #输出载荷条件和温度压力
             detaildata['load'] = {
                 'loadCon':loadcon,
-                'loadTP':tup2dic(loadtp,cursor.description)
+                'loadT':loadt,
+                'loadP':loadp
                 }
             cursor.close()
         else:
@@ -219,7 +230,7 @@ def get_result():
         index = resultIndex.get('index')
         db = get_db()
         cursor = db.cursor()
-        detaildata['result'] = getResult(cursor,style)
+        detaildata['result'] = getResult(cursor,style,index)
         cursor.close()
     else:
         response_data = detaildata['result']
@@ -249,45 +260,45 @@ def list2dic(tup,des):
     outlist = [list1,list2]
     return composedict(des,outlist)
 
-def getResult(cursor,type):
+def getResult(cursor,type,index):
     '''获取分类完好的算例结果'''
     table = 'tbResultsStruc'+str(type)
-    JX_IN1 = cursor.execute(
-             "SELECT Time,JX_IN FROM '%s' WHERE CaseID = '%s' AND Time<=2" %(table,index)).fetchall()
-    JX_IN2 = cursor.execute(
-             "SELECT Time,JX_IN FROM '%s' WHERE CaseID = '%s' AND Time>=2" %(table,index)).fetchall()
-    ZX_IN1 = cursor.execute(
-             "SELECT Time,ZX_IN FROM '%s' WHERE CaseID = '%s' AND Time<=2" %(table,index)).fetchall()
-    ZX_IN2 = cursor.execute(
-             "SELECT Time,ZX_IN FROM '%s' WHERE CaseID = '%s' AND Time>=2" %(table,index)).fetchall()
-    ZX_OUT1 = cursor.execute(
-             "SELECT Time,ZX_OUT FROM '%s' WHERE CaseID = '%s' AND Time<=2" %(table,index)).fetchall()
-    ZX_OUT2 = cursor.execute(
-             "SELECT Time,ZX_OUT FROM '%s' WHERE CaseID = '%s' AND Time>=2" %(table,index)).fetchall()
-    JX_OUT1 = cursor.execute(
-             "SELECT Time,JX_OUT FROM '%s' WHERE CaseID = '%s' AND Time<=2" %(table,index)).fetchall()
-    JX_OUT2 = cursor.execute(
-             "SELECT Time,JX_OUT FROM '%s' WHERE CaseID = '%s' AND Time>=2" %(table,index)).fetchall()
-    ZJ_U1 = cursor.execute(
-             "SELECT Time,ZJ_U FROM '%s' WHERE CaseID = '%s' AND Time<=2" %(table,index)).fetchall()
-    ZJ_U2 = cursor.execute(
-             "SELECT Time,ZJ_U FROM '%s' WHERE CaseID = '%s' AND Time>=2" %(table,index)).fetchall()
-    ZJ_D1 = cursor.execute(
-             "SELECT Time,ZJ_D FROM '%s' WHERE CaseID = '%s' AND Time<=2" %(table,index)).fetchall()
-    ZJ_D2 = cursor.execute(
-             "SELECT Time,ZJ_D FROM '%s' WHERE CaseID = '%s' AND Time>=2" %(table,index)).fetchall()
-    FL_JXWYL1 = cursor.execute(
-             "SELECT Time,FL_JXWYL FROM '%s' WHERE CaseID = '%s' AND Time<=2" %(table,index)).fetchall()
-    FL_JXWYL2 = cursor.execute(
-             "SELECT Time,FL_JXWYL FROM '%s' WHERE CaseID = '%s' AND Time>=2" %(table,index)).fetchall()
-    FL_ZKL1 = cursor.execute(
-             "SELECT Time,FL_ZKL FROM '%s' WHERE CaseID = '%s' AND Time<=2" %(table,index)).fetchall()
-    FL_ZKL2 = cursor.execute(
-             "SELECT Time,FL_ZKL FROM '%s' WHERE CaseID = '%s' AND Time>=2" %(table,index)).fetchall()
-    LS_YJL1 = cursor.execute(
-             "SELECT Time,LS_YJL FROM '%s' WHERE CaseID = '%s' AND Time<=2" %(table,index)).fetchall()
-    LS_YJL2 = cursor.execute(
-             "SELECT Time,LS_YJL FROM '%s' WHERE CaseID = '%s' AND Time>=2" %(table,index)).fetchall()
+    sql = "SELECT Time,JX_IN FROM " + table + " WHERE CaseID = ? AND Time<=2"
+    JX_IN1 = cursor.execute(sql ,(index,)).fetchall()
+    sql = "SELECT Time,JX_IN FROM " + table + " WHERE CaseID = ? AND Time>=2"
+    JX_IN2 = cursor.execute(sql ,(index,)).fetchall()
+    sql = "SELECT Time,ZX_IN FROM " + table + " WHERE CaseID = ? AND Time<=2"
+    ZX_IN1 = cursor.execute(sql ,(index,)).fetchall()
+    sql = "SELECT Time,ZX_IN FROM " + table + " WHERE CaseID = ? AND Time>=2"
+    ZX_IN2 = cursor.execute(sql ,(index,)).fetchall()
+    sql = "SELECT Time,ZX_OUT FROM " + table + " WHERE CaseID = ? AND Time<=2"
+    ZX_OUT1 = cursor.execute(sql ,(index,)).fetchall()
+    sql = "SELECT Time,ZX_OUT FROM " + table + " WHERE CaseID = ? AND Time>=2"
+    ZX_OUT2 = cursor.execute(sql ,(index,)).fetchall()
+    sql = "SELECT Time,JX_OUT FROM " + table + " WHERE CaseID = ? AND Time<=2"
+    JX_OUT1 = cursor.execute(sql ,(index,)).fetchall()
+    sql = "SELECT Time,JX_OUT FROM " + table + " WHERE CaseID = ? AND Time>=2"
+    JX_OUT2 = cursor.execute(sql ,(index,)).fetchall()
+    sql = "SELECT Time,ZJ_U FROM " + table + " WHERE CaseID = ? AND Time<=2"
+    ZJ_U1 = cursor.execute(sql ,(index,)).fetchall()
+    sql = "SELECT Time,ZJ_U FROM " + table + " WHERE CaseID = ? AND Time>=2"
+    ZJ_U2 = cursor.execute(sql ,(index,)).fetchall()
+    sql = "SELECT Time,ZJ_D FROM " + table + " WHERE CaseID = ? AND Time<=2"
+    ZJ_D1 = cursor.execute(sql ,(index,)).fetchall()
+    sql = "SELECT Time,ZJ_D FROM " + table + " WHERE CaseID = ? AND Time>=2"
+    ZJ_D2 = cursor.execute(sql ,(index,)).fetchall()
+    sql = "SELECT Time,FL_JXWYL FROM " + table + " WHERE CaseID = ? AND Time<=2"
+    FL_JXWYL1 = cursor.execute(sql ,(index,)).fetchall()
+    sql = "SELECT Time,FL_JXWYL FROM " + table + " WHERE CaseID = ? AND Time>=2"
+    FL_JXWYL2 = cursor.execute(sql ,(index,)).fetchall()
+    sql = "SELECT Time,FL_ZKL FROM " + table + " WHERE CaseID = ? AND Time<=2"
+    FL_ZKL1 = cursor.execute(sql ,(index,)).fetchall()
+    sql = "SELECT Time,FL_ZKL FROM " + table + " WHERE CaseID = ? AND Time>=2"
+    FL_ZKL2 = cursor.execute(sql ,(index,)).fetchall()
+    sql = "SELECT Time,LS_YJL FROM " + table + " WHERE CaseID = ? AND Time<=2"
+    LS_YJL1 = cursor.execute(sql ,(index,)).fetchall()
+    sql = "SELECT Time,LS_YJL FROM " + table + " WHERE CaseID = ? AND Time>=2"
+    LS_YJL2 = cursor.execute(sql ,(index,)).fetchall()
     result = {
         'JX_IN1':JX_IN1,
         'JX_IN2':JX_IN2,

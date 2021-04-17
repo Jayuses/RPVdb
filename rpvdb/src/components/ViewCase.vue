@@ -1,24 +1,26 @@
 ﻿<template>
-    <el-tabs v-model="activeName">
-        <el-tab-pane label="仿真参数" name="first" >
-            <div >
-                <el-tabs :tab-position="tabPosition" style="height: 360px;">
-                    <el-tab-pane class="righttab" label="结构参数">
-                        <Geom :geomIndex="geomIndex"></Geom>
-                    </el-tab-pane>
-                    <el-tab-pane class="righttab" label="结构材料">
-                        <Material :materInfor="materInfor"></Material>
-                    </el-tab-pane>
-                    <el-tab-pane class="righttab" label="加载工况">
-                        <Load :loadIndex="loadIndex"></Load>
-                    </el-tab-pane>
-                </el-tabs>
-            </div>
-        </el-tab-pane>
-        <el-tab-pane label="仿真结果" name="second">
-            <Result :resultIndex="index"></Result>
-        </el-tab-pane>
-    </el-tabs>
+    <div>
+        <el-tabs v-model="activeName" v-show="index.index">
+            <el-tab-pane label="仿真参数" name="first">
+                <div>
+                    <el-tabs :tab-position="tabPosition" style="height: 360px;">
+                        <el-tab-pane class="righttab" label="结构参数">
+                            <Geom :geomIndex="geomIndex"></Geom>
+                        </el-tab-pane>
+                        <el-tab-pane class="righttab" label="结构材料">
+                            <Material :materInfor="materInfor"></Material>
+                        </el-tab-pane>
+                        <el-tab-pane class="righttab" label="加载工况">
+                            <Load :loadIndex="loadIndex"></Load>
+                        </el-tab-pane>
+                    </el-tabs>
+                </div>
+            </el-tab-pane>
+            <el-tab-pane label="仿真结果" name="second">
+                <Result :resultIndex="index"></Result>
+            </el-tab-pane>
+        </el-tabs>
+    </div>
 </template>
 
 <style>

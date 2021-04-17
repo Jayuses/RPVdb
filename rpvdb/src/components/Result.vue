@@ -4,60 +4,60 @@
             <el-tab-pane label="密封环位置轴向分离量">
                 <el-tabs tab-position="bottom">
                     <el-tab-pane label="预紧过程">
-                        <ResultChart :reData="resultData.result1"></ResultChart>
+                        <ResultCharts :reData1="resultData.ZX_IN1" :reData2="resultData.ZX_OUT1"></ResultCharts>
                     </el-tab-pane>
                     <el-tab-pane label="服役过程">
-                        <ResultChart></ResultChart>
+                        <ResultCharts :reData1="resultData.ZX_IN2" :reData2="resultData.ZX_OUT2"></ResultCharts>
                     </el-tab-pane>
                 </el-tabs>
             </el-tab-pane>
             <el-tab-pane label="密封环位置径向分离量">
                 <el-tabs tab-position="bottom">
                     <el-tab-pane label="预紧过程">
-                        <ResultChart></ResultChart>
+                        <ResultCharts :reData1="resultData.JX_IN1" :reData2="resultData.JX_OUT1"></ResultCharts>
                     </el-tab-pane>
                     <el-tab-pane label="服役过程">
-                        <ResultChart></ResultChart>
+                        <ResultCharts :reData1="resultData.JX_IN2" :reData2="resultData.JX_OUT2"></ResultCharts>
                     </el-tab-pane>
                 </el-tabs>
             </el-tab-pane>
             <el-tab-pane label="法兰相对转角">
                 <el-tabs tab-position="bottom">
                     <el-tab-pane label="预紧过程">
-                        <ResultChart></ResultChart>
+                        <ResultCharts :reData1="resultData.ZJ_U1" :reData2="resultData.ZJ_D1"></ResultCharts>
                     </el-tab-pane>
                     <el-tab-pane label="服役过程">
-                        <ResultChart></ResultChart>
+                        <ResultCharts :reData1="resultData.ZJ_U2" :reData2="resultData.ZJ_D2"></ResultCharts>
                     </el-tab-pane>
                 </el-tabs>
             </el-tab-pane>
             <el-tab-pane label="法兰轴向相对位移">
                 <el-tabs tab-position="bottom">
                     <el-tab-pane label="预紧过程">
-                        <ResultChart></ResultChart>
+                        <ResultChart :reData="resultData.FL_ZKL1"></ResultChart>
                     </el-tab-pane>
                     <el-tab-pane label="服役过程">
-                        <ResultChart></ResultChart>
+                        <ResultChart :reData="resultData.FL_ZKL2"></ResultChart>
                     </el-tab-pane>
                 </el-tabs>
             </el-tab-pane>
             <el-tab-pane label="法兰径向相对位移">
                 <el-tabs tab-position="bottom">
                     <el-tab-pane label="预紧过程">
-                        <ResultChart></ResultChart>
+                        <ResultChart :reData="resultData.FL_JXWYL1"></ResultChart>
                     </el-tab-pane>
                     <el-tab-pane label="服役过程">
-                        <ResultChart></ResultChart>
+                        <ResultChart :reData="resultData.FL_JXWYL2"></ResultChart>
                     </el-tab-pane>
                 </el-tabs>
             </el-tab-pane>
             <el-tab-pane label="螺栓应力">
                 <el-tabs tab-position="bottom">
                     <el-tab-pane label="预紧过程">
-                        <ResultChart></ResultChart>
+                        <ResultChart :reData="resultData.LS_YJL1"></ResultChart>
                     </el-tab-pane>
                     <el-tab-pane label="服役过程">
-                        <ResultChart></ResultChart>
+                        <ResultChart :reData="resultData.LS_YJL2"></ResultChart>
                     </el-tab-pane>
                 </el-tabs>
             </el-tab-pane>
@@ -74,6 +74,7 @@
 <script>
     import axios from 'axios';
     import ResultChart from './ResultChart.vue';
+    import ResultCharts from './ResultCharts.vue';
     export default {
         name: 'Result',
         //父组件ViewCase传入参数resultIndex{'style':'','index':''}，
@@ -123,8 +124,18 @@
             }
         },
 
+        computed: {
+            redatas(data1,data2) {
+                return {
+                    reData1: data1,
+                    reData2: data2,
+                }
+            }
+        },
+
         components: {
             ResultChart,
+            ResultCharts
         }
     };
 </script>

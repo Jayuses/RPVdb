@@ -1,7 +1,10 @@
 <template>
     <el-table :data="tableData.caselist"
-                style="width: 95%;line-height:10px;margin-left:10px"
-                height="450"
+              :row-class-name="tableRowClassName" 
+              :row-style="selectedstyle"
+              :show-header="false"
+              style="width: 95%;line-height:10px;margin-left:10px"
+              height="430px"
               @cell-dblclick="detail">
         <el-table-column prop="CaseID"
                             align="center"
@@ -24,7 +27,7 @@
         data() {
             return {
                 tableData: {},
-                //poststyle: { style: this.dataStyle },
+                getIndex: ''
             }
         },
 
@@ -55,6 +58,21 @@
                     this.getList()
                 });*/
             },
+            selectedstyle({ row, rowIndex }) {
+                if ((this.getIndex) === rowIndex) {
+                    return {
+                        "background-color": "#E0E0E0"
+                    };
+                }
+            },
+
+            tableRowClassName({ row, rowIndex }) {
+                row.index = rowIndex;
+            },
+
+            rowClick(row) {
+                this.getIndex = row.index
+            },
 
             detail(row) {
                 let index = {
@@ -62,7 +80,7 @@
                     index: row.CaseID
                 };
                 this.$emit('show-detail', index);
-
+                this.getIndex = row.index
             }
 
         },
