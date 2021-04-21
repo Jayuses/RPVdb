@@ -6,9 +6,9 @@
               style="width: 95%;line-height:10px;margin-left:10px"
               height="430px"
               @cell-dblclick="detail">
-        <el-table-column prop="CaseID"
-                            align="center"
-                            width="170">
+        <el-table-column prop="ID"
+                          align="center"
+                          width="170">
         </el-table-column>
     </el-table>
 </template>
@@ -75,11 +75,11 @@
             },
 
             detail(row) {
-                let index = {
+                let theindex = {
                     style: this.dataStyle,
-                    index: row.CaseID
+                    index: row.ID
                 };
-                this.$emit('show-detail', index);
+                this.$emit('show-detail', theindex);
                 this.getIndex = row.index
             }
 

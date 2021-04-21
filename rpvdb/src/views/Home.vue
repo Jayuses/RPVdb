@@ -3,11 +3,13 @@
         <el-container style="height:100%">
             <el-header>
                 <div>
-                    <el-tabs type="border-card" value="first">
-                        <el-tab-pane label="查看" name="first">
+                    <el-tabs type="border-card" value="first"
+                             @tab-click="toAnother"
+                             :before-leave="beforeLeaveTab">
+                        <el-tab-pane label="仿真案例管理" name="first">
                             <el-row :gutter="20">
                                 <el-col :span="11" style="border-right: 3px solid #C0C0C0">
-                                    <h5>查看算例</h5>
+                                    <h5><i class="el-icon-search"></i>&nbsp;&nbsp;查看案例</h5>
                                     <span>
                                         <el-row>
                                             <el-col :span="6" :offset="3">
@@ -23,26 +25,40 @@
                                     </span>
                                 </el-col>
                                 <el-col :span="4" style="border-right: 1px solid #C0C0C0">
-                                    <!--<h5>结构尺寸</h5>-->
-                                    <span>
-                                        <el-button type="text" @click="datastyle=4"> 结构尺寸库 </el-button>
-                                    </span>
+                                    <p style="padding:0;margin:0;">
+                                        <el-button type="text" icon="el-icon-plus" style="font-size:30px;"></el-button>
+                                        <span style="font-size: 14px; color:cadetblue">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;新建
+                                        </span>
+                                    </p>
                                 </el-col>
                                 <el-col :span="4" style="border-right: 1px solid #C0C0C0">
-                                    <!--<h5>结构材料</h5>-->
-                                    <span>
-                                        <el-button type="text" @click="datastyle=7"> 结构材料库 </el-button>
-                                    </span>
+                                    <p style="padding:0;margin:0;">
+                                        <el-button type="text" icon="el-icon-delete" style="font-size:30px;"></el-button>
+                                        <span style="font-size: 14px; color:cadetblue">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;删除
+                                        </span>
+                                    </p>
                                 </el-col>
                                 <el-col :span="4">
-                                    <!--<h5>加载工况</h5>-->
-                                    <span>
-                                        <el-button type="text" @click="datastyle=8"> 加载工况库 </el-button>
-                                    </span>
+                                    <p style="padding:0;margin:0;">
+                                        <el-button type="text" icon="el-icon-search"
+                                                   style="font-size:30px;"
+                                                   @click="dialogVisible=true"></el-button>
+                                        <span style="font-size: 14px; color:cadetblue">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;检索匹配
+                                        </span>
+                                    </p>
+                                    <el-dialog title="检索匹配"
+                                               :visible.sync="dialogVisible"
+                                               width="70%">
+                                        <Search></Search>
+                                    </el-dialog>
                                 </el-col>
                             </el-row>
                         </el-tab-pane>
-                        <el-tab-pane label="输入" name="second">输入数据</el-tab-pane>
+                        <el-tab-pane label="数据库管理" name="second">
+                        </el-tab-pane>
                     </el-tabs>
                 </div>
             </el-header>
@@ -57,7 +73,7 @@
                             <span>
                                 <el-button v-show="datastyle" type="text"
                                            @click="datastyle=0" icon="el-icon-close"
-                                           style="margin-left:50px"></el-button>
+                                           :class="[datastyle==2 ? 'title2':'title1']"></el-button>
                             </span>
                         </p>
                         <ViewAside :dataStyle="datastyle" v-show="datastyle" @show-detail="viewIndex=$event"></ViewAside>
@@ -108,11 +124,20 @@
         font-weight:700;
         text-align:center;
     }
+    .title1 {
+        margin-left: 40px;
+        margin-right: 10px
+    }
+    .title2 {
+        margin-left: 10px;
+        margin-right: 10px
+    }
 </style>
 
 <script>
 import ViewAside from '../components/ViewAside.vue'
 import ViewCase from '../components/ViewCase.vue'
+import Search from '../components/Search.vue'
 export default {
     name: 'Home',
     data() {
@@ -120,13 +145,22 @@ export default {
             datastyle: 0,
             viewIndex: {
                 style: this.datastyle,
-                index:''
-            }
+                index: '',
+            },
+            dialogVisible: false
         };
     },
 
     methods: {
-        
+        toAnother(tab) {
+            if (tab.name == 'second') {
+                this.$router.push('/dataset');
+            }
+        },
+
+        beforeLeaveTab(activeName, oldName) {
+           return false
+        }
     },
 
     computed: {
@@ -154,6 +188,7 @@ export default {
     components: {
         ViewAside,
         ViewCase,
+        Search
     }
 }
 </script>

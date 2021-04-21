@@ -104,6 +104,7 @@
                 dialogVisible1: false,
                 dialogVisible2: false,
                 dialogVisible3: false,
+                test : 0
             }
         },
 
@@ -113,6 +114,7 @@
                 const path = 'http://localhost:5000/getdata/load';
                 axios.get(path)
                     .then((res) => {
+                        this.test = 2;
                         this.loadData = res.data;
                     })
                     .catch((error) => {
@@ -125,6 +127,7 @@
                 const path = 'http://localhost:5000/getdata/load';
                 axios.post(path, payload)
                     .then(() => {
+                        this.test = 1;
                         this.getData();
                     })
                     .catch((error) => {
@@ -153,7 +156,7 @@
                     return require('../assets/image/path3/平顶盖-机械载荷.png')
             },
             url3() {
-                if (this.loadIndex.style == 1)
+                if (this.loadIndex.style == 1 )
                     return require('../assets/image/path1/球形顶盖-垫片反力.png')
                 else if (this.loadIndex.style == 2)
                     return require('../assets/image/path2/内带平台球形顶盖-垫片反力.png')
@@ -161,7 +164,7 @@
                     return require('../assets/image/path3/平顶盖-垫片反力.png')
             },
             url4() {
-                if (this.loadIndex.style == 1)
+                if (this.loadIndex.style == 1 )
                     return require('../assets/image/path1/球形顶盖-温度加载示意图.png')
                 else if (this.loadIndex.style == 2)
                     return require('../assets/image/path2/内带平台球形顶盖-温度加载示意图.png')
@@ -183,6 +186,7 @@
                     this.postIndex(newindex);
                 },
                 deep: true,
+                immediate:true
             }
         },
 

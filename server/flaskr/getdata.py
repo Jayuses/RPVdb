@@ -25,26 +25,35 @@ def getlist():
         datalist['style'] =  datastyle.get('style')
         db = get_db()
         cursor = db.cursor()
+        des = [('ID',  0)]
         error = None
         if   datalist['style'] == 1 :
-            #请求类型1，返回球形顶盖算例数据目录{'ID':'','CaseID':''}
-            caselist = cursor.execute('SELECT CaseID,ID FROM tbCasesStruc1').fetchall()
-            datalist['caselist'] = tup2dic(caselist,cursor.description)
+            #请求类型1，返回球形顶盖算例数据目录{'CaseID':''}
+            caselist = cursor.execute('SELECT CaseID FROM tbCasesStruc1').fetchall()
+            datalist['caselist'] = tup2dic(caselist,des)
             cursor.close()
         elif datalist['style'] == 2 :
-            #请求类型2，返回内带平台球形顶盖算例数据目录{'ID':'','CaseID':''}
-            caselist = cursor.execute('SELECT CaseID,ID FROM tbCasesStruc2').fetchall()
-            datalist['caselist'] = tup2dic(caselist,cursor.description)
+            #请求类型2，返回内带平台球形顶盖算例数据目录{'CaseID':''}
+            caselist = cursor.execute('SELECT CaseID FROM tbCasesStruc2').fetchall()
+            datalist['caselist'] = tup2dic(caselist,des)
             cursor.close()
         elif datalist['style'] == 3 :
-            #请求类型3，返回平顶盖算例数据目录{'ID':'','caseID':''}
-            caselist = cursor.execute('SELECT CaseID,ID FROM tbCasesStruc3').fetchall()
-            datalist['caselist'] = tup2dic(caselist,cursor.description)
+            #请求类型3，返回平顶盖算例数据目录{'caseID':''}
+            caselist = cursor.execute('SELECT CaseID FROM tbCasesStruc3').fetchall()
+            datalist['caselist'] = tup2dic(caselist,des)
             cursor.close()
         elif datalist['style'] == 4 :
-            #请求类型4，返回SG-系列结构尺寸数据目录{'ID':'','caseID':''}
-            caselist = cursor.execute('SELECT SG_ID,ID FROM tbCasesStruc1').fetchall()
-            datalist['caselist'] = tup2dic(caselist,cursor.description)
+            #请求类型4，返回结构尺寸目录[ {'ID':'','CaseID':[caseID1,caseID2,.....] } ......]
+            datalist['caselist'] = searchGeom(cursor)
+            cursor.close()
+        elif datalist['style'] == 5 :
+            #请求类型5，返回材料目录{'MaterID':''}
+            caselist = cursor.execute('SELECT MaterID FROM tbMater').fetchall()
+            datalist['caselist'] = tup2dic(caselist,des)
+            cursor.close()
+        elif datalist['style'] == 6 :
+            #请求类型6，返回工况目录[{'LT':'','LC':[{'LC_ID':'','CaseID':[LC_ID1,LC_ID2,....]}....]}....]
+            datalist['caselist'] = searchLc(cursor)
             cursor.close()
     else:
         response_list = datalist
@@ -265,39 +274,39 @@ def getResult(cursor,type,index):
     table = 'tbResultsStruc'+str(type)
     sql = "SELECT Time,JX_IN FROM " + table + " WHERE CaseID = ? AND Time<=2"
     JX_IN1 = cursor.execute(sql ,(index,)).fetchall()
-    sql = "SELECT Time,JX_IN FROM " + table + " WHERE CaseID = ? AND Time>=2"
+    sql = "SELECT Time*0.0002778,JX_IN FROM " + table + " WHERE CaseID = ? AND Time>=2"
     JX_IN2 = cursor.execute(sql ,(index,)).fetchall()
     sql = "SELECT Time,ZX_IN FROM " + table + " WHERE CaseID = ? AND Time<=2"
     ZX_IN1 = cursor.execute(sql ,(index,)).fetchall()
-    sql = "SELECT Time,ZX_IN FROM " + table + " WHERE CaseID = ? AND Time>=2"
+    sql = "SELECT Time*0.0002778,ZX_IN FROM " + table + " WHERE CaseID = ? AND Time>=2"
     ZX_IN2 = cursor.execute(sql ,(index,)).fetchall()
     sql = "SELECT Time,ZX_OUT FROM " + table + " WHERE CaseID = ? AND Time<=2"
     ZX_OUT1 = cursor.execute(sql ,(index,)).fetchall()
-    sql = "SELECT Time,ZX_OUT FROM " + table + " WHERE CaseID = ? AND Time>=2"
+    sql = "SELECT Time*0.0002778,ZX_OUT FROM " + table + " WHERE CaseID = ? AND Time>=2"
     ZX_OUT2 = cursor.execute(sql ,(index,)).fetchall()
     sql = "SELECT Time,JX_OUT FROM " + table + " WHERE CaseID = ? AND Time<=2"
     JX_OUT1 = cursor.execute(sql ,(index,)).fetchall()
-    sql = "SELECT Time,JX_OUT FROM " + table + " WHERE CaseID = ? AND Time>=2"
+    sql = "SELECT Time*0.0002778,JX_OUT FROM " + table + " WHERE CaseID = ? AND Time>=2"
     JX_OUT2 = cursor.execute(sql ,(index,)).fetchall()
     sql = "SELECT Time,ZJ_U FROM " + table + " WHERE CaseID = ? AND Time<=2"
     ZJ_U1 = cursor.execute(sql ,(index,)).fetchall()
-    sql = "SELECT Time,ZJ_U FROM " + table + " WHERE CaseID = ? AND Time>=2"
+    sql = "SELECT Time*0.0002778,ZJ_U FROM " + table + " WHERE CaseID = ? AND Time>=2"
     ZJ_U2 = cursor.execute(sql ,(index,)).fetchall()
     sql = "SELECT Time,ZJ_D FROM " + table + " WHERE CaseID = ? AND Time<=2"
     ZJ_D1 = cursor.execute(sql ,(index,)).fetchall()
-    sql = "SELECT Time,ZJ_D FROM " + table + " WHERE CaseID = ? AND Time>=2"
+    sql = "SELECT Time*0.0002778,ZJ_D FROM " + table + " WHERE CaseID = ? AND Time>=2"
     ZJ_D2 = cursor.execute(sql ,(index,)).fetchall()
     sql = "SELECT Time,FL_JXWYL FROM " + table + " WHERE CaseID = ? AND Time<=2"
     FL_JXWYL1 = cursor.execute(sql ,(index,)).fetchall()
-    sql = "SELECT Time,FL_JXWYL FROM " + table + " WHERE CaseID = ? AND Time>=2"
+    sql = "SELECT Time*0.0002778,FL_JXWYL FROM " + table + " WHERE CaseID = ? AND Time>=2"
     FL_JXWYL2 = cursor.execute(sql ,(index,)).fetchall()
     sql = "SELECT Time,FL_ZKL FROM " + table + " WHERE CaseID = ? AND Time<=2"
     FL_ZKL1 = cursor.execute(sql ,(index,)).fetchall()
-    sql = "SELECT Time,FL_ZKL FROM " + table + " WHERE CaseID = ? AND Time>=2"
+    sql = "SELECT Time*0.0002778,FL_ZKL FROM " + table + " WHERE CaseID = ? AND Time>=2"
     FL_ZKL2 = cursor.execute(sql ,(index,)).fetchall()
-    sql = "SELECT Time,LS_YJL FROM " + table + " WHERE CaseID = ? AND Time<=2"
+    sql = "SELECT Time,LS_YJL*1E-6 FROM " + table + " WHERE CaseID = ? AND Time<=2"
     LS_YJL1 = cursor.execute(sql ,(index,)).fetchall()
-    sql = "SELECT Time,LS_YJL FROM " + table + " WHERE CaseID = ? AND Time>=2"
+    sql = "SELECT Time*0.0002778,LS_YJL*1E-6 FROM " + table + " WHERE CaseID = ? AND Time>=2"
     LS_YJL2 = cursor.execute(sql ,(index,)).fetchall()
     result = {
         'JX_IN1':JX_IN1,
@@ -321,5 +330,118 @@ def getResult(cursor,type,index):
         }
     return result
 
+def searchGeom(cursor):
+    '''搜寻所有几何尺寸案例库，并将案例按库名分类'''
+    outlist = [] #输出形式为 [ {'ID':'','CaseID':[caseID1,caseID2,.....] } ......]
+    idlist = [] #辅助列表
+    caselist = cursor.execute('SELECT CaseID,SG_ID FROM tbCasesStruc1').fetchall()
+    for li in caselist:
+        if li[1] not in idlist:
+            outlist.append({'ID':li[1],'CaseID':[{'case':li[0]},],'style':1})
+            idlist.append(li[1])
+        else:
+            outlist[idlist.index(li[1])]['CaseID'].append({'case':li[0]})
 
+    caselist = cursor.execute('SELECT CaseID,SG_ID FROM tbCasesStruc2').fetchall()
+    for li in caselist:
+        if li[1] not in idlist:
+            outlist.append({'ID':li[1],'CaseID':[{'case':li[0]},],'style':2})
+            idlist.append(li[1])
+        else:
+            outlist[idlist.index(li[1])]['CaseID'].append({'case':li[0]})
 
+    caselist = cursor.execute('SELECT CaseID,SG_ID FROM tbCasesStruc3').fetchall()
+    for li in caselist:
+        if li[1] not in idlist:
+            outlist.append({'ID':li[1],'CaseID':[{'case':li[0]},],'style':3})
+            idlist.append(li[1])
+        else:
+            outlist[idlist.index(li[1])]['CaseID'].append({'case':li[0]})
+
+    return outlist
+
+def searchLc(cursor):
+    '''搜寻所有工况库，并将案例按库名分类'''
+    #输出形式为 [{'LT':'','LC':[{'LC_ID':'','CaseID':[LC_ID1,LC_ID2,....]}....]}....]
+    fList = []  #最终输出列表
+    outlist = []  #检索tbCasesStruc得到的'LC_ID'与'CaseID'匹配列表
+    idlist = []   #辅助列表
+    #检索tbCasesStruc
+    caselist = cursor.execute('SELECT CaseID,LC_ID FROM tbCasesStruc1').fetchall()
+    for li in caselist:
+        if li[1] not in idlist:
+            outlist.append({'ID':li[1],'CaseID':[{'case':li[0]},],'style':1})
+            idlist.append(li[1])
+        else:
+            outlist[idlist.index(li[1])]['CaseID'].append({'case':li[0]})
+
+    caselist = cursor.execute('SELECT CaseID,LC_ID FROM tbCasesStruc2').fetchall()
+    for li in caselist:
+        if li[1] not in idlist:
+            outlist.append({'ID':li[1],'CaseID':[{'case':li[0]},],'style':2})
+            idlist.append(li[1])
+        else:
+            outlist[idlist.index(li[1])]['CaseID'].append({'case':li[0]})
+
+    caselist = cursor.execute('SELECT CaseID,LC_ID FROM tbCasesStruc3').fetchall()
+    for li in caselist:
+        if li[1] not in idlist:
+            outlist.append({'ID':li[1],'CaseID':[{'case':li[0]},],'style':3})
+            idlist.append(li[1])
+        else:
+            outlist[idlist.index(li[1])]['CaseID'].append({'case':li[0]})
+
+    #检索tbLoadCon
+    ltlist = []   #辅助列表
+    calist = []
+    caselist = cursor.execute('SELECT LC_ID,LT FROM tbLoadCon1').fetchall()
+    for li in caselist:
+        if li[1] not in ltlist:
+            fList.append({'LT':li[1],'LC':[li[0],]})
+            ltlist.append(li[1])
+            calist.append(li[0])
+        else:
+            if li[0] not in calist:
+                fList[ltlist.index(li[1])]['LC'].append(li[0]) 
+                calist.append(li[0])
+            else:
+                continue
+
+    caselist = cursor.execute('SELECT LC_ID,LT FROM tbLoadCon2').fetchall()
+    for li in caselist:
+        if li[1] not in ltlist:
+            fList.append({'LT':li[1],'LC':[li[0],]})
+            ltlist.append(li[1])
+            calist.append(li[0])
+        else:
+            if li[0] not in calist:
+                fList[ltlist.index(li[1])]['LC'].append(li[0]) 
+                calist.append(li[0])
+            else:
+                continue
+
+    caselist = cursor.execute('SELECT LC_ID,LT FROM tbLoadCon3').fetchall()
+    for li in caselist:
+        if li[1] not in ltlist:
+            fList.append({'LT':li[1],'LC':[li[0],]})
+            ltlist.append(li[1])
+            calist.append(li[0])
+        else:
+            if li[0] not in calist:
+                fList[ltlist.index(li[1])]['LC'].append(li[0]) 
+                calist.append(li[0])
+            else:
+                continue
+    #将fList内的'LC_ID'替换为outlist中的元素
+    i = 0
+    while i < len(fList):
+        j = 0
+        while j < len(fList[i]['LC']):
+            if fList[i]['LC'][j] in idlist:
+                fList[i]['LC'][j] = outlist[idlist.index(fList[i]['LC'][j])]
+            else:
+                fList[i]['LC'][j] = []
+            j += 1
+        i += 1
+    
+    return fList

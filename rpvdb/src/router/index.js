@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
+import Dataset from '../views/Dataset.vue'
 
 Vue.use(VueRouter)
 
@@ -15,7 +16,15 @@ const routes = [
     {
         path: '/home',
         name: 'Home',
-        component: Home
+        component: Home,
+        meta: {keepAlive:true}
+    },
+
+    {
+        path: '/dataset',
+        name: 'Dataset',
+        component: Dataset,
+        meta: { keepAlive: true }
     },
 ]
 

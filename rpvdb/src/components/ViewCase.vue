@@ -3,7 +3,7 @@
         <el-tabs v-model="activeName" v-show="index.index">
             <el-tab-pane label="仿真参数" name="first">
                 <div>
-                    <el-tabs :tab-position="tabPosition" style="height: 360px;">
+                    <el-tabs :tab-position="tabPosition" style="height: 390px;">
                         <el-tab-pane class="righttab" label="结构参数">
                             <Geom :geomIndex="geomIndex"></Geom>
                         </el-tab-pane>

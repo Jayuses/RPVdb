@@ -1,6 +1,6 @@
 ﻿<template>
     <div>
-        <h4 style="margin:0">{{materIndex}}</h4>
+        <h4 style="margin:0;line-height:22px">{{materIndex}}</h4>
         <el-tabs>
             <el-tab-pane label="物理性能">
                 <el-tabs tab-position="left">

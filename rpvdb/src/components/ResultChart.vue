@@ -15,6 +15,8 @@
         TitleComponent,
         TooltipComponent,
         GridComponent,
+        DataZoomComponent,
+        GraphicComponent
     } from 'echarts/components';
     // 引入 Canvas 渲染器，注意引入 CanvasRenderer 或者 SVGRenderer 是必须的一步
     import {
@@ -22,11 +24,15 @@
     } from 'echarts/renderers';
     //注册必须的组件
     echarts.use(
-        [TitleComponent, TooltipComponent, GridComponent, LineChart, ScatterChart, CanvasRenderer]
+        [TitleComponent, TooltipComponent, GridComponent, DataZoomComponent, GraphicComponent, LineChart, ScatterChart, CanvasRenderer]
     );
     export default {
         name: 'ResultChart',
-        props: { 'reData': Array},
+        props: {
+            'reData': Array,
+            'process': String,
+            'reUnit': String,
+        },
         data() {
             return {
                 option: {
@@ -40,23 +46,23 @@
                         trigger: 'axis'
                     },
                     xAxis: {
-                        name: 'Time/s',
+                        name: '',
                         nameLocation: 'middle',
                         nameTextStyle: {
                             fontWeight: 'bold',
                             fontSize: 14,
                             lineHeight: 10,
-                            padding: [12, 5, 5, 5]
+                            padding: [15, 5, 5, 5]
                         }
                     },
                     yAxis: {
                         name: '',
-                        nameLocation: 'end',
+                        nameLocation: 'middle',
                         nameTextStyle: {
                             fontWeight: 'bold',
                             fontSize: 14,
                             lineHeight: 10,
-                            padding: [5, 5, 5, 12]
+                            padding: [5, 5, 25, 5]
                         }
                     },
                     series: [
@@ -65,7 +71,33 @@
                             data: [],
                             symbolSize: 5
                         },
-                    ]
+                    ],
+                    dataZoom: [
+                        {
+                            type: 'slider',
+                            show: false,
+                            xAxisIndex: 0,
+                            filterMode: 'none'
+                        },
+                        {
+                            type: 'slider',
+                            show: false,
+                            yAxisIndex: 0,
+                            filterMode: 'none'
+                        },
+                        {
+                            type: 'inside',
+                            show: false,
+                            xAxisIndex: 0,
+                            filterMode: 'none'
+                        },
+                        {
+                            type: 'inside',
+                            show: false,
+                            yAxisIndex: 0,
+                            filterMode: 'none'
+                        }
+                    ],
                 }
             }
         },
@@ -79,9 +111,61 @@
                 var myChart = echarts.init(this.$refs.main);
                 var chart_option = this.option;
                 chart_option.series[0].data = data;
+                chart_option.xAxis.name = this.process;
+                chart_option.yAxis.name = this.reUnit;
                 myChart.setOption(chart_option);
+                this.drag_larger(myChart, data);
             },
 
+            drag_larger(myChart, data) {
+                setTimeout(function (data) {
+                    // Add shadow circles (which is not visible) to enable drag.
+                    myChart.setOption({
+                        graphic: echarts.util.map(data, function (item, dataIndex) {
+                            return {
+                                type: 'circle',
+                                position: myChart.convertToPixel('grid', item),
+                                shape: {
+                                    cx: 0,
+                                    cy: 0,
+                                },
+                                invisible: true,
+                                draggable: true,
+                                ondrag: function (dx, dy) {
+                                    onPointDragging(dataIndex, [this.x, this.y]);
+                                },
+                                z: 100
+                            };
+                        })
+                    });
+                }, 0);
+
+                window.addEventListener('resize', updatePosition);
+
+                myChart.on('dataZoom', updatePosition);
+
+                function updatePosition(data) {
+                    myChart.setOption({
+                        graphic: echarts.util.map(data, function (item, dataIndex) {
+                            return {
+                                position: myChart.convertToPixel('grid', item)
+                            };
+                        })
+                    });
+                }
+
+                function onPointDragging(dataIndex, pos) {
+                    data[dataIndex] = myChart.convertFromPixel('grid', pos);
+
+                    // Update data
+                    myChart.setOption({
+                        series: [{
+                            id: 'a',
+                            data: data
+                        }]
+                    });
+                }
+            }
         },
 
         watch: {

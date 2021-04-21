@@ -15,63 +15,71 @@
         <el-row>
             <el-col :span="10">
                 <div class="p-para">
-                    <el-tabs type="border-card" class="p-para">
+                    <el-tabs tab-position="bottom" class="p-para">
                         <el-tab-pane label="顶盖" >
-                            <p>D1 = {{geomData.D1}} mm</p>
-                            <p>D2 = {{geomData.D2}} mm</p>
-                            <p>D3 = {{geomData.D3}} mm</p>
-                            <p>D4 = {{geomData.D4}} mm</p>
-                            <p>D5 = {{geomData.D5}} mm</p>
-                            <p>D6 = {{geomData.D6}} mm</p>
-                            <p>R1 = {{geomData.R1}} mm</p>
-                            <p>SR2 = {{geomData.SR2}} mm</p>
-                            <p>R3 = {{geomData.R3}} mm</p>
-                            <p>h1 = {{geomData.h1}} mm</p>
-                            <p>h2 = {{geomData.h2}} mm</p>
-                            <p>t1 = {{geomData.t1}} mm</p>
-                            <p>m = {{geomData.m}} (螺栓个数)</p>
-                            <p>n = {{geomData.n}} (螺栓个数)</p>
+                            <div class="tab-content">
+                                <p>D1 = {{geomData.D1}} mm</p>
+                                <p>D2 = {{geomData.D2}} mm</p>
+                                <p>D3 = {{geomData.D3}} mm</p>
+                                <p>D4 = {{geomData.D4}} mm</p>
+                                <p>D5 = {{geomData.D5}} mm</p>
+                                <p>D6 = {{geomData.D6}} mm</p>
+                                <p>R1 = {{geomData.R1}} mm</p>
+                                <p>SR2 = {{geomData.SR2}} mm</p>
+                                <p>R3 = {{geomData.R3}} mm</p>
+                                <p>h1 = {{geomData.h1}} mm</p>
+                                <p>h2 = {{geomData.h2}} mm</p>
+                                <p>t1 = {{geomData.t1}} mm</p>
+                                <p>m = {{geomData.m}} (螺栓个数)</p>
+                                <p>n = {{geomData.n}} (螺栓个数)</p>
+                            </div>
                         </el-tab-pane>
                         <el-tab-pane label="筒体">
-                            <p>D7 = {{geomData.D7}} mm</p>
-                            <p>D8 = {{geomData.D8}} mm</p>
-                            <p>D9 = {{geomData.D9}} mm</p>
-                            <p>D10 = {{geomData.D10}} mm</p>
-                            <p>h3 = {{geomData.h3}} mm</p>
-                            <p>h4 = {{geomData.h4}} mm</p>
-                            <p>h5 = {{geomData.h5}} mm</p>
-                            <p>R4 = {{geomData.R4}} mm</p>
-                            <p>&#952 = {{geomData.θ}} &deg;</p>
-                            <p>t2 = {{geomData.t2}} mm</p>
+                            <div class="tab-content">
+                                <p>D7 = {{geomData.D7}} mm</p>
+                                <p>D8 = {{geomData.D8}} mm</p>
+                                <p>D9 = {{geomData.D9}} mm</p>
+                                <p>D10 = {{geomData.D10}} mm</p>
+                                <p>h3 = {{geomData.h3}} mm</p>
+                                <p>h4 = {{geomData.h4}} mm</p>
+                                <p>h5 = {{geomData.h5}} mm</p>
+                                <p>R4 = {{geomData.R4}} mm</p>
+                                <p>&#952 = {{geomData.θ}} &deg;</p>
+                                <p>t2 = {{geomData.t2}} mm</p>
+                            </div>
                         </el-tab-pane>
                         <el-tab-pane label="密封面">
-                            <p>D11 = {{geomData.D11}} mm</p>
-                            <p>D12 = {{geomData.D12}} mm</p>
-                            <p>D13 = {{geomData.D13}} mm</p>
-                            <p>D14 = {{geomData.D14}} mm</p>
-                            <p>D15 = {{geomData.D15}} mm</p>
-                            <p>D16 = {{geomData.D16}} mm</p>
-                            <p>D17 = {{geomData.D17}} mm</p>
-                            <p>h6 = {{geomData.h6}} mm</p>
-                            <p>L1 = {{geomData.L1}} mm</p>
-                            <p>L2 = {{geomData.L2}} mm</p>
+                            <div class="tab-content">
+                                <p>D11 = {{geomData.D11}} mm</p>
+                                <p>D12 = {{geomData.D12}} mm</p>
+                                <p>D13 = {{geomData.D13}} mm</p>
+                                <p>D14 = {{geomData.D14}} mm</p>
+                                <p>D15 = {{geomData.D15}} mm</p>
+                                <p>D16 = {{geomData.D16}} mm</p>
+                                <p>D17 = {{geomData.D17}} mm</p>
+                                <p>h6 = {{geomData.h6}} mm</p>
+                                <p>L1 = {{geomData.L1}} mm</p>
+                                <p>L2 = {{geomData.L2}} mm</p>
+                            </div>
                         </el-tab-pane>
                         <el-tab-pane label="螺栓连接">
-                            <p>D18 = {{geomData.D18}} mm</p>
-                            <p>D19 = {{geomData.D19}} mm</p>
-                            <p>h7 = {{geomData.h7}} mm</p>
-                            <p>h8 = {{geomData.h8}} mm</p>
+                            <div class="tab-content">
+                                <p>D18 = {{geomData.D18}} mm</p>
+                                <p>D19 = {{geomData.D19}} mm</p>
+                                <p>h7 = {{geomData.h7}} mm</p>
+                                <p>h8 = {{geomData.h8}} mm</p>
+                            </div>
                         </el-tab-pane>
                     </el-tabs>
                 </div>
             </el-col>
             <el-col :span="14">
-                <el-tabs type="border-card" class="struct-taps">
+                <el-tabs tab-position="bottom">
                     <el-tab-pane label="整体结构">
-                        <el-image :src="struc_url1" ></el-image>
+                        <el-image :src="struc_url1" class="tab-pic"></el-image>
                     </el-tab-pane>
                     <el-tab-pane label="密封结构">
-                        <el-image :src="struc_url2"  ></el-image>
+                        <el-image :src="struc_url2" class="tab-pic"></el-image>
                     </el-tab-pane>
                 </el-tabs>
             </el-col>
@@ -89,27 +97,22 @@
         padding-top:0;
     }
     .gemo-title {
-        text-align:left;
+        text-align: left;
         margin: 0;
         font-size: 14px;
-        /*border-bottom: 2px solid #C0C0C0;*/
+        border-bottom: 2px solid #F0F0F0;
     }
     .struc-para {
         border: 1px solid #C0C0C0;
         box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
         font-size: 14px;
     }
-    .p-para {
-        height: 310px;
-    }
     .p-para p {
         margin: 0;
         padding: 4px;
         text-align: center;
         font-size: 14px;
-    }
-    .struct-taps {
-        height: 310px;
+        line-height:10px;
     }
     .struc-pic{
         padding:0;
@@ -117,7 +120,18 @@
     .struc-image {
         height: 280px;
     }
-
+    .tab-content {
+        height: 290px;
+        padding-left:100px;
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .tab-pic {
+        height: 280px;
+        padding-top:10px;
+        display: table-cell;
+        vertical-align: middle;
+    }
 </style>
 
 <script>

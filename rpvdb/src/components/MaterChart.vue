@@ -46,17 +46,17 @@
                             fontWeight: 'bold',
                             fontSize: 14,
                             lineHeight: 10,
-                            padding:[12,5,5,5]
+                            padding:[15,5,5,5]
                         }
                     },
                     yAxis: {
                         name:'',
-                        nameLocation: 'end',
+                        nameLocation: 'middle',
                         nameTextStyle: {
                             fontWeight: 'bold',
                             fontSize: 14,
                             lineHeight: 10,
-                            padding: [5, 5, 5, 12]
+                            padding: [5, 5, 25, 5]
                         }
                     },
                     series: [
