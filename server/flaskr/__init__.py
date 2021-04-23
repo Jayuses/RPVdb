@@ -37,4 +37,8 @@ def create_app(test_config=None):
     from . import login
     app.register_blueprint(login.bp)
 
+    #注册'search'蓝图
+    from . import search
+    app.register_blueprint(search.bp)
+
     return app

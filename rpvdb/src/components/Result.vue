@@ -159,6 +159,7 @@
                     this.postIndex(this.resultIndex);
                 },
                 deep: true,
+                immediate:true
             }
         },
 

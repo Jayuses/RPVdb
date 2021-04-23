@@ -45,9 +45,9 @@ def init_app(app):
 #pypyodbc.lowercase = False
 #db = pypyodbc.win_connect_mdb('Driver={};DBQ={};PWD={}'.format(DRIVER,DBQ,PWD))
 #cursor = db.cursor()
-#idIndex = 'SPS2-专家-D-1001'
-#des = [('CaseID',  0)]
-#caselist = cursor.execute('SELECT CaseID,ID FROM tbCasesStruc1').fetchall()
-##t = tup2dic(caselist,des)
+##idIndex = 'SPS2-专家-D-1001'
+##des = [('CaseID',  0)]
+#caselist = cursor.execute("SELECT CaseID FROM tbCasesStruc1 WHERE SG_ID='SG-original' ").fetchall()
+###t = tup2dic(caselist,des)
 
 #print(caselist)

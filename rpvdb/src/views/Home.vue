@@ -26,11 +26,19 @@
                                 </el-col>
                                 <el-col :span="4" style="border-right: 1px solid #C0C0C0">
                                     <p style="padding:0;margin:0;">
-                                        <el-button type="text" icon="el-icon-plus" style="font-size:30px;"></el-button>
+                                        <el-button type="text"
+                                                   icon="el-icon-plus"
+                                                   style="font-size:30px;"
+                                                   @click="dialogVisible1=true"></el-button>
                                         <span style="font-size: 14px; color:cadetblue">
                                             &nbsp;&nbsp;&nbsp;&nbsp;新建
                                         </span>
                                     </p>
+                                    <el-dialog title="新建案例"
+                                               :visible.sync="dialogVisible1"
+                                               width="80%">
+                                        <CreateCase></CreateCase>
+                                    </el-dialog>
                                 </el-col>
                                 <el-col :span="4" style="border-right: 1px solid #C0C0C0">
                                     <p style="padding:0;margin:0;">
@@ -44,15 +52,15 @@
                                     <p style="padding:0;margin:0;">
                                         <el-button type="text" icon="el-icon-search"
                                                    style="font-size:30px;"
-                                                   @click="dialogVisible=true"></el-button>
+                                                   @click="dialogVisible2=true"></el-button>
                                         <span style="font-size: 14px; color:cadetblue">
                                             &nbsp;&nbsp;&nbsp;&nbsp;检索匹配
                                         </span>
                                     </p>
                                     <el-dialog title="检索匹配"
-                                               :visible.sync="dialogVisible"
-                                               width="70%">
-                                        <Search></Search>
+                                               :visible.sync="dialogVisible2"
+                                               width="80%">
+                                        <Search @show-case="showCase"></Search>
                                     </el-dialog>
                                 </el-col>
                             </el-row>
@@ -72,16 +80,17 @@
                             </span>
                             <span>
                                 <el-button v-show="datastyle" type="text"
-                                           @click="datastyle=0" icon="el-icon-close"
+                                           @click="reset" icon="el-icon-close"
                                            :class="[datastyle==2 ? 'title2':'title1']"></el-button>
                             </span>
                         </p>
-                        <ViewAside :dataStyle="datastyle" v-show="datastyle" @show-detail="viewIndex=$event"></ViewAside>
+                        <ViewAside :dataStyle="datastyle" v-if="datastyle && datastyle!=7" @show-detail="viewIndex=$event"></ViewAside>
+                        <SearchCase :caselist="searchlist" v-if="datastyle==7" @show-detail="viewIndex=$event"></SearchCase>
                     </div>
                 </el-aside>
                 <el-main>
                     <ViewCase :index="viewIndex" style="line-height:10px"
-                              v-show="datastyle"></ViewCase>
+                              v-if="viewIndex.index"></ViewCase>
                 </el-main>
             </el-container>
         </el-container>
@@ -135,60 +144,78 @@
 </style>
 
 <script>
-import ViewAside from '../components/ViewAside.vue'
-import ViewCase from '../components/ViewCase.vue'
-import Search from '../components/Search.vue'
-export default {
-    name: 'Home',
-    data() {
-        return {
-            datastyle: 0,
-            viewIndex: {
-                style: this.datastyle,
-                index: '',
-            },
-            dialogVisible: false
-        };
-    },
+    import ViewAside from '../components/ViewAside.vue'
+    import ViewCase from '../components/ViewCase.vue'
+    import Search from '../components/Search.vue'
+    import SearchCase from '../components/SearchCase.vue'
+    import CreateCase from '../components/CreateCase.vue'
+    export default {
+        name: 'Home',
+        data() {
+            return {
+                datastyle: 0,
+                viewIndex: {
+                    style: this.datastyle,
+                    index: '',
+                },
+                dialogVisible1: false,
+                dialogVisible2: false,
+                searchlist: [],
+            };
+        },
 
-    methods: {
-        toAnother(tab) {
-            if (tab.name == 'second') {
-                this.$router.push('/dataset');
+        methods: {
+            toAnother(tab) {
+                if (tab.name == 'second') {
+                    this.$router.push('/dataset');
+                }
+            },
+
+            beforeLeaveTab(activeName, oldName) {
+               return false
+            },
+
+            reset() {
+                this.datastyle = 0;
+            },
+
+            showCase(caselist) {
+                this.searchlist = caselist;
+                this.datastyle = 7;
+                this.dialogVisible2 = false;
             }
         },
 
-        beforeLeaveTab(activeName, oldName) {
-           return false
-        }
-    },
-
-    computed: {
-        showtitle() {
-         //显示列表标题
-            switch (this.datastyle) {
-                case 1: return ("球形顶盖");
-                case 2: return ("内带平台球形顶盖");
-                case 3: return ("平顶盖");
-            }
-        }
-    },
-
-    watch: {
-        datastyle: {
-            handler(newstyle, oldstyle) {
-                this.viewIndex = {
-                    style: this.datastyle,
-                    index: ''
+        computed: {
+            showtitle() {
+             //显示列表标题
+                switch (this.datastyle) {
+                    case 1: return ("球形顶盖");
+                    case 2: return ("内带平台球形顶盖");
+                    case 3: return ("平顶盖");
+                    case 7: return ("检索结果");
                 }
             }
-        }
-    },
+        },
 
-    components: {
-        ViewAside,
-        ViewCase,
-        Search
+        watch: {
+            datastyle: {
+                handler(newstyle, oldstyle) {
+                    this.viewIndex = {
+                        style: this.datastyle,
+                        index: ''
+                    }
+                }
+            }
+        },
+
+        components: {
+            ViewAside,
+            ViewCase,
+            Search,
+            SearchCase,
+            CreateCase
+        },
+
     }
-}
 </script>

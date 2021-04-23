@@ -1,14 +1,14 @@
 <template>
     <el-table :data="tableData.caselist"
-              :row-class-name="tableRowClassName" 
-              :row-style="selectedstyle"
-              :show-header="false"
-              style="width: 95%;line-height:10px;margin-left:10px"
-              height="430px"
-              @cell-dblclick="detail">
+                :row-class-name="tableRowClassName"
+                :row-style="selectedstyle"
+                :show-header="false"
+                style="width: 95%;line-height:10px;margin-left:10px"
+                height="430px"
+                @cell-dblclick="detail">
         <el-table-column prop="ID"
-                          align="center"
-                          width="170">
+                            align="center"
+                            width="170">
         </el-table-column>
     </el-table>
 </template>
@@ -86,9 +86,12 @@
         },
 
         watch: {
-            dataStyle(newstyle, oldstyle) {
-                let poststyle = { style: newstyle };
-                this.postReq(poststyle);
+            dataStyle: {
+                handler(newstyle, oldstyle) {
+                    let poststyle = { style: newstyle };
+                    this.postReq(poststyle);
+                },
+                immediate:true    
             }
         },
 

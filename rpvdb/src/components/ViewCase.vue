@@ -1,6 +1,6 @@
 ﻿<template>
     <div>
-        <el-tabs v-model="activeName" v-show="index.index">
+        <el-tabs v-model="activeName">
             <el-tab-pane label="仿真参数" name="first">
                 <div>
                     <el-tabs :tab-position="tabPosition" style="height: 390px;">
@@ -86,6 +86,7 @@
                     this.postIndex(newindex);
                 },
                 deep: true,
+                immediate:true,
             },
 
             caseData: {
@@ -111,6 +112,7 @@
                     };
                 },
                 deep: true,
+                immediate: true,
             },
         },
 

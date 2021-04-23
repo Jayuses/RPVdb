@@ -216,6 +216,7 @@
                     this.postIndex(newindex);
                 },
                 deep: true,
+                immediate:true
             }
         },
     };

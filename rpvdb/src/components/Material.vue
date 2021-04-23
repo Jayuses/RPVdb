@@ -71,7 +71,6 @@
 </style>
 
 <script>
-    import axios from 'axios';
     import MaterDetail from './MaterDetail.vue';
     export default {
         name: 'Material',
