@@ -26,12 +26,12 @@
 |　　　　|　　　|　　　　　|---Result.vue  
 |　　　　|　　　|　　　......   
 |　　　　|　　　|　　
-|　　　　|　　　|----router/   
+|　　　　|　　　|-------router/   
 |　　　　|　　　|　　　　　|---index.js  
-|　　　　|　　　|---views/ 
-|　　　　|　　　|　　　　　|---Home.vue  
-|　　　　|　　　|　　　　　|---Dataset.vue  
-|　　　　|　　　|　　　　　|---login.vue  
+|　　　　|　　　|-------views/ 
+|　　　　|　　　|　　　　　|---Home.vue   
+|　　　　|　　　|　　　　　|---Dataset.vue   
+|　　　　|　　　|　　　　　|---login.vue   
 |　　　　|　　　|---App.vue  
 |　　　　|　　　|---main.js  
 |　　　　|---其他配置文件  
