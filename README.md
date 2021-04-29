@@ -28,7 +28,7 @@
 |　　　　|　　　|　　
 |　　　　|　　　|-------router/   
 |　　　　|　　　|　　　　　|---index.js  
-|　　　　|　　　|-------views/ 
+|　　　　|　　　|-------views/   
 |　　　　|　　　|　　　　　|---Home.vue   
 |　　　　|　　　|　　　　　|---Dataset.vue   
 |　　　　|　　　|　　　　　|---login.vue   
