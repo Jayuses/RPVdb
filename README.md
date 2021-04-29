@@ -17,8 +17,8 @@
 |-----rpvdb/ 
 |　　　　|-----src/  
 |　　　　|　　　|---components/  
-|　　　　|　　　|　　　　　|---ViewAside.vue 
-|　　　　|　　　|　　　　　|---ViewCase.vue  
+|　　　　|　　　|　　　　　|---ViewAside.vue   
+|　　　　|　　　|　　　　　|---ViewCase.vue    
 |　　　　|　　　|　　　　　|---Geom.vue  
 |　　　　|　　　|　　　　　|---Material.vue  
 |　　　　|　　　|　　　　　|---MaterDetail.vue  
