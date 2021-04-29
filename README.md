@@ -12,7 +12,7 @@
 |　　　　|　　　|---getdata.py(getdata蓝图，根据请求从数据库中获取数据)  
 |　　　　|  
 |　　　　|---instance/(包含.mdb数据库文件,未上传)  
-|　　　　|---requirement.txt 
+|　　　　|---requirement.txt   
 |　　　　　　　　    
 |-----rpvdb/  
 |　　　　|-----src/   
