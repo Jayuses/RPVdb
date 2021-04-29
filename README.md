@@ -14,9 +14,9 @@
 |　　　　|---instance/(包含.mdb数据库文件,未上传)  
 |　　　　|---requirement.txt 
 |　　　　  
-|-----rpvdb/ 
-|　　　　|-----src/  
-|　　　　|　　　|---components/  
+|-----rpvdb/  
+|　　　　|-----src/   
+|　　　　|　　　|---components/   
 |　　　　|　　　|　　　　　|---ViewAside.vue   
 |　　　　|　　　|　　　　　|---ViewCase.vue    
 |　　　　|　　　|　　　　　|---Geom.vue  
@@ -25,16 +25,16 @@
 |　　　　|　　　|　　　　　|---Load.vue  
 |　　　　|　　　|　　　　　|---Result.vue  
 |　　　　|　　　|　　　......   
-|　　　　|　　　|　　
-|　　　　|　　　|-------router/   
-|　　　　|　　　|　　　　　|---index.js  
+|　　　　|　　　|　　  
+|　　　　|　　　|-------router/    
+|　　　　|　　　|　　　　　|---index.js    
 |　　　　|　　　|-------views/   
 |　　　　|　　　|　　　　　|---Home.vue   
 |　　　　|　　　|　　　　　|---Dataset.vue   
 |　　　　|　　　|　　　　　|---login.vue   
-|　　　　|　　　|---App.vue  
-|　　　　|　　　|---main.js  
-|　　　　|---其他配置文件  
+|　　　　|　　　|---App.vue    
+|　　　　|　　　|---main.js    
+|　　　　|---其他配置文件    
 |  
 |-----README.md  
 
