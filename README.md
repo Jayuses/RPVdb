@@ -40,17 +40,20 @@
 
 ***
 ### 组件树
-<kbd>APP</kbd>   
-　|  
+<kbd>APP</kbd>     
 　|--<kbd>Home</kbd>  
-　　　　|---<kbd>ViewAside</kbd>  
-　　　　|---<kbd>ViewCase</kbd>  
-　　　　|　　　|---<kbd>Geom</kbd>  
-　　　　|　　　|---<kbd>Material</kbd>    
-　　　　|　　　|　　　|---<kbd>MaterDetail</kbd>   
-　　　　|　　　|---<kbd>Load</kbd>  
-　　　　|　　　|---<kbd>Result</kbd>  
-
+　|　　　　|---<kbd>ViewAside</kbd>  
+　|　　　　|---<kbd>ViewCase</kbd>  
+　|　　　　|　　　|---<kbd>Geom</kbd>  
+　|　　　　|　　　|---<kbd>Material</kbd>    
+　|　　　　|　　　|　　　|---<kbd>MaterDetail</kbd>   
+　|　　　　|　　　|---<kbd>Load</kbd>  
+　|　　　　|　　　|---<kbd>Result</kbd>  
+　|　　　　|---<kbd>Search</kbd>  
+　|　　　　|---<kbd>SearchCase</kbd>  
+　|　　　　|---<kbd>CreateCase</kbd>   
+　|　　　　|---<kbd>DeleteCase</kbd>   
+    
 ***
 
 
