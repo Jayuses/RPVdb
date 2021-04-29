@@ -14,21 +14,24 @@
 |　　　　|---instance/(包含.mdb数据库文件,未上传)  
 |　　　　|---requirement.txt 
 |　　　　  
-|-----rpvdb/(通过vue.cli 4.5.12 创建,作为前端界面)  
-|　　　　|---node_modules/（包含vue配置包，未上传）  
+|-----rpvdb/ 
 |　　　　|-----src/  
-|　　　　|　　　|---components/(组件包)  
-|　　　　|　　　|　　　　　|---ViewAside.vue(用于'查看'选项卡的侧边栏组件)  
+|　　　　|　　　|---components/  
+|　　　　|　　　|　　　　　|---ViewAside.vue 
 |　　　　|　　　|　　　　　|---ViewCase.vue  
 |　　　　|　　　|　　　　　|---Geom.vue  
 |　　　　|　　　|　　　　　|---Material.vue  
 |　　　　|　　　|　　　　　|---MaterDetail.vue  
 |　　　　|　　　|　　　　　|---Load.vue  
 |　　　　|　　　|　　　　　|---Result.vue  
-|　　　　|　　　|----router/(路由注册)  
+|　　　　|　　　|　　　......   
+|　　　　|　　　|　　
+|　　　　|　　　|----router/   
 |　　　　|　　　|　　　　　|---index.js  
-|　　　　|　　　|---views/(与路由相关组件)  
-|　　　　|　　　|　　　　　|---Home.vue(主界面组件)  
+|　　　　|　　　|---views/ 
+|　　　　|　　　|　　　　　|---Home.vue  
+|　　　　|　　　|　　　　　|---Dataset.vue  
+|　　　　|　　　|　　　　　|---login.vue  
 |　　　　|　　　|---App.vue  
 |　　　　|　　　|---main.js  
 |　　　　|---其他配置文件  
