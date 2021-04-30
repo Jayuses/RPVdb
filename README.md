@@ -5,8 +5,8 @@
 
 ### 项目布局  
 / RPVdb  
-|-----server/(后端服务器)  
-|　　　　|---flaskr/(包含应用代码和文件)  
+|-----server/  
+|　　　　|---flaskr/ 
 |　　　　|　　　|---＿init＿.py   
 |　　　　|　　　|---db.py   
 |　　　　|　　　|---getdata.py   
