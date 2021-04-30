@@ -66,6 +66,8 @@
 　|　　|　　　|---<kbd>TP</kbd>   
 　|　　|---<kbd>RelativeCase</kbd>  
 　|　　|---<kbd>Geom</kbd>  
+　|　　|---<kbd>CreateDB</kbd>  
+　|　　|---<kbd>DeleteDB</kbd>  
 　|　　   
 　|--<kbd>Login</kbd>  
  
