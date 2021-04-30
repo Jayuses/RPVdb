@@ -7,12 +7,15 @@
 / RPVdb  
 |-----server/(后端服务器)  
 |　　　　|---flaskr/(包含应用代码和文件)  
-|　　　　|　　　|---＿init＿.py(应用工厂)  
-|　　　　|　　　|---db.py(数据库操作)  
-|　　　　|　　　|---getdata.py(getdata蓝图，根据请求从数据库中获取数据)  
+|　　　　|　　　|---＿init＿.py   
+|　　　　|　　　|---db.py   
+|　　　　|　　　|---getdata.py   
+|　　　　|　　　|---create.py   
+|　　　　|　　　|---login.py   
+|　　　　|　　　|---search.py  
 |　　　　|  
-|　　　　|---instance/(包含.mdb数据库文件,未上传)  
-|　　　　|---requirement.txt   
+|　　　　|---instance/   
+|　　　　|---requirement.txt     
 |　　　　　　　　    
 |-----rpvdb/  
 |　　　　|-----src/   
