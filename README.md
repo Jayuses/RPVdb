@@ -14,8 +14,7 @@
 |　　　　|　　　|---login.py   
 |　　　　|　　　|---search.py  
 |　　　　|  
-|　　　　|---instance/   
-|　　　　|---requirement.txt     
+|　　　　|---instance/       
 |　　　　　　　　    
 |-----rpvdb/  
 |　　　　|-----src/   
