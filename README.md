@@ -13,6 +13,7 @@
 |　　　　|　　　|---create.py   
 |　　　　|　　　|---login.py   
 |　　　　|　　　|---search.py  
+|　　　　|　　　|---change.py  
 |　　　　|  
 |　　　　|---instance/       
 |　　　　　　　　    
