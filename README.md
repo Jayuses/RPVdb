@@ -5,9 +5,9 @@
 
 ### 项目布局  
 / RPVdb  
-|-----server/  
-|　　　　|---flaskr/ 
-|　　　　|　　　|---＿init＿.py   
+|-----server/    
+|　　　　|---flaskr/   
+|　　　　|　　　|---＿init＿.py    
 |　　　　|　　　|---db.py   
 |　　　　|　　　|---getdata.py   
 |　　　　|　　　|---create.py   
