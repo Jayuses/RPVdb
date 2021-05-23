@@ -1,14 +1,14 @@
 <template>
     <el-table :data="tableData.caselist"
-                :row-class-name="tableRowClassName"
-                :row-style="selectedstyle"
-                :show-header="false"
-                style="width: 95%;line-height:10px;margin-left:10px"
-                height="430px"
-                @cell-dblclick="detail">
+              :row-class-name="tableRowClassName"
+              :row-style="selectedstyle"
+              :show-header="false"
+              style="width: 95%;line-height:10px;margin-left:10px"
+              height="430px"
+              @cell-dblclick="detail">
         <el-table-column prop="ID"
-                            align="center"
-                            width="170">
+                         align="center"
+                         width="170">
         </el-table-column>
     </el-table>
 </template>
@@ -23,11 +23,11 @@
     import axios from 'axios';
     export default {
         name: 'ViewAside',
-        props: { 'dataStyle': Number },
+        props: { 'dataStyle': Number,},
         data() {
             return {
                 tableData: {},
-                getIndex: ''
+                getIndex: '',
             }
         },
 
@@ -82,6 +82,7 @@
                 this.$emit('show-detail', theindex);
                 this.getIndex = row.index
             }
+
 
         },
 

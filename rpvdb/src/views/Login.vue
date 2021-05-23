@@ -67,6 +67,7 @@
                                     } else if (res.data.status === 2) {
                                         callback(new Error('用户名不存在'));
                                     } else if (res.data.status === 1) {
+                                        this.logClass = res.data.class
                                         callback();
                                     }
                                 })
@@ -94,13 +95,14 @@
                         { validator: checkpass, trigger: 'blur' },
                     ]
                 },
+                logClass : -1
             }
         },
         methods: {
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.$router.push('/home');
+                        this.$router.push({ name: 'Home', params: { logClass: this.logClass } });
                     } else {
                         console.log('error submit!!');
                         return false;

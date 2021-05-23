@@ -6,7 +6,7 @@
                     <el-tabs type="border-card" value="second"
                              :before-leave="beforeLeaveTab"
                              @tab-click="toAnother">
-                        <el-tab-pane label="仿真案例管理" name="first">  
+                        <el-tab-pane label="仿真案例管理" name="first">
                         </el-tab-pane>
                         <el-tab-pane label="数据库管理" name="second">
                             <el-col :span="11" style="border-right: 3px solid #C0C0C0">
@@ -14,20 +14,24 @@
                                 <span>
                                     <el-row>
                                         <el-col :span="6" :offset="3">
-                                            <el-button type="text" @click="datastyle=4"> 结构尺寸库 </el-button>
+                                            <el-button type="text" @click="datastyle=4"
+                                                       :disabled="limit1"> 结构尺寸库 </el-button>
                                         </el-col>
                                         <el-col :span="6">
-                                            <el-button type="text" @click="datastyle=5"> 结构材料库 </el-button>
+                                            <el-button type="text" @click="datastyle=5"
+                                                       :disabled="limit1"> 结构材料库 </el-button>
                                         </el-col>
                                         <el-col :span="6">
-                                            <el-button type="text" @click="datastyle=6"> 加载工况库 </el-button>
+                                            <el-button type="text" @click="datastyle=6"
+                                                       :disabled="limit1"> 加载工况库 </el-button>
                                         </el-col>
                                     </el-row>
                                 </span>
                             </el-col>
                             <el-col :span="4" style="border-right: 1px solid #C0C0C0">
                                 <p style="padding:0;margin:0;">
-                                    <el-button type="text" icon="el-icon-plus" style="font-size:30px;"></el-button>
+                                    <el-button type="text" icon="el-icon-plus" style="font-size:30px;"
+                                               :disabled="limit2"></el-button>
                                     <span style="font-size: 14px; color:cadetblue">
                                         &nbsp;&nbsp;&nbsp;&nbsp;新建
                                     </span>
@@ -35,7 +39,8 @@
                             </el-col>
                             <el-col :span="4" style="border-right: 1px solid #C0C0C0">
                                 <p style="padding:0;margin:0;">
-                                    <el-button type="text" icon="el-icon-delete" style="font-size:30px;"></el-button>
+                                    <el-button type="text" icon="el-icon-delete" style="font-size:30px;"
+                                               :disabled="limit2"></el-button>
                                     <span style="font-size: 14px; color:cadetblue">
                                         &nbsp;&nbsp;&nbsp;&nbsp;删除
                                     </span>
@@ -43,6 +48,9 @@
                             </el-col>
                         </el-tab-pane>
                     </el-tabs>
+                    <div class="user">
+                        <el-avatar size="medium" shape="square">{{ users }}</el-avatar>
+                    </div>
                 </div>
             </el-header>
             <br /><br /><br /><br />
@@ -153,6 +161,11 @@
         float: right;
         clear: both;
     }
+    .user {
+        position: absolute;
+        right: 60px;
+        top: 10px;
+    }
 </style>
 
 <script>
@@ -167,7 +180,10 @@ export default {
     data() {
         return {
             datastyle: 0,
-            viewIndex: { index: '',}
+            viewIndex: { index: '', },
+            logClass: this.$route.params.logClass,
+            limit1: true,
+            limit2: true
         };
     },
 
@@ -197,7 +213,14 @@ export default {
                 style: this.viewIndex.style,
                 index: this.viewIndex.index
             }
-        }    
+        },
+        users() {
+            if (this.logClass == 1) {
+                return 'User'
+            } else if (this.logClass == 0) {
+                return 'Admin'
+            }
+        }
     },
 
     watch: {
@@ -206,6 +229,17 @@ export default {
                 this.viewIndex = { index: '',}
             }
         },
+        logClass: {
+            handler(newstyle, oldstyle) {
+                if (newstyle == 0) {
+                    this.limit1 = false;
+                    this.limit2 = false;
+                } else if (newstyle == 1) {
+                    this.limit1 = false;
+                }
+            },
+            immediate: true
+        }
     },
 
     components: {

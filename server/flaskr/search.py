@@ -1,6 +1,6 @@
-﻿#!/RPVdb/server/flaskr/getdata.py
+﻿#!/RPVdb/server/flaskr/search.py
 # -*- conding: utf-8 -*-
-# 蓝图文件'getdata',为前端获取数据提供接口
+# 蓝图文件'search',搜索案例
 
 import functools
 from flask import (

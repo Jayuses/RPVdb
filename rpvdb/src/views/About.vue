@@ -1,5 +1,16 @@
-<template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
-</template>
+
+
+        <template>
+           <!--定义页面模板-->
+        </template>
+
+        <style>
+            /*定义页面样式*/
+        </style>
+
+        <script>
+            //定义页面行为和数据
+        </script>
+
+
+

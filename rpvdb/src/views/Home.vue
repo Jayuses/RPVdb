@@ -13,13 +13,16 @@
                                     <span>
                                         <el-row>
                                             <el-col :span="6" :offset="3">
-                                                <el-button type="text" @click="datastyle=1"> 球形顶盖 </el-button>
+                                                <el-button type="text" @click="datastyle=1"
+                                                           :disabled="limit1"> 球形顶盖 </el-button>
                                             </el-col>
                                             <el-col :span="6">
-                                                <el-button type="text" @click="datastyle=2"> 内带平台球形顶盖 </el-button>
+                                                <el-button type="text" @click="datastyle=2"
+                                                           :disabled="limit1"> 内带平台球形顶盖 </el-button>
                                             </el-col>
                                             <el-col :span="6">
-                                                <el-button type="text" @click="datastyle=3"> 平顶盖 </el-button>
+                                                <el-button type="text" @click="datastyle=3"
+                                                           :disabled="limit1"> 平顶盖 </el-button>
                                             </el-col>
                                         </el-row>
                                     </span>
@@ -29,7 +32,8 @@
                                         <el-button type="text"
                                                    icon="el-icon-plus"
                                                    style="font-size:30px;"
-                                                   @click="dialogVisible1=true"></el-button>
+                                                   @click="dialogVisible1=true"
+                                                   :disabled="limit2"></el-button>
                                         <span style="font-size: 14px; color:cadetblue">
                                             &nbsp;&nbsp;&nbsp;&nbsp;新建
                                         </span>
@@ -42,7 +46,10 @@
                                 </el-col>
                                 <el-col :span="4" style="border-right: 1px solid #C0C0C0">
                                     <p style="padding:0;margin:0;">
-                                        <el-button type="text" icon="el-icon-delete" style="font-size:30px;"></el-button>
+                                        <el-button type="text" icon="el-icon-delete"
+                                                   style="font-size:30px;"
+                                                   :disabled="viewIndex.index=='' || limit2"
+                                                   @click="deleteCase"></el-button>
                                         <span style="font-size: 14px; color:cadetblue">
                                             &nbsp;&nbsp;&nbsp;&nbsp;删除
                                         </span>
@@ -52,7 +59,8 @@
                                     <p style="padding:0;margin:0;">
                                         <el-button type="text" icon="el-icon-search"
                                                    style="font-size:30px;"
-                                                   @click="dialogVisible2=true"></el-button>
+                                                   @click="dialogVisible2=true"
+                                                   :disabled="limit1"></el-button>
                                         <span style="font-size: 14px; color:cadetblue">
                                             &nbsp;&nbsp;&nbsp;&nbsp;检索匹配
                                         </span>
@@ -68,6 +76,9 @@
                         <el-tab-pane label="数据库管理" name="second">
                         </el-tab-pane>
                     </el-tabs>
+                    <div class="user">
+                        <el-avatar size="medium" shape="square">{{ users }}</el-avatar>
+                    </div>
                 </div>
             </el-header>
             <br /><br /><br /><br />
@@ -84,7 +95,8 @@
                                            :class="[datastyle==2 ? 'title2':'title1']"></el-button>
                             </span>
                         </p>
-                        <ViewAside :dataStyle="datastyle" v-if="datastyle && datastyle!=7" @show-detail="viewIndex=$event"></ViewAside>
+                        <ViewAside :dataStyle="datastyle" v-if="datastyle && datastyle!=7"
+                                   @show-detail="viewIndex=$event"></ViewAside>
                         <SearchCase :caselist="searchlist" v-if="datastyle==7" @show-detail="viewIndex=$event"></SearchCase>
                     </div>
                 </el-aside>
@@ -141,14 +153,21 @@
         margin-left: 10px;
         margin-right: 10px
     }
+    .user{
+        position:absolute;
+        right:60px;
+        top:10px;
+    }
 </style>
 
 <script>
-    import ViewAside from '../components/ViewAside.vue'
-    import ViewCase from '../components/ViewCase.vue'
-    import Search from '../components/Search.vue'
-    import SearchCase from '../components/SearchCase.vue'
-    import CreateCase from '../components/CreateCase.vue'
+    import ViewAside from '../components/ViewAside.vue';
+    import ViewCase from '../components/ViewCase.vue';
+    import Search from '../components/Search.vue';
+    import SearchCase from '../components/SearchCase.vue';
+    import CreateCase from '../components/CreateCase.vue';
+    import DelectCase from '../components/DelectCase.vue';
+    import axios from 'axios';
     export default {
         name: 'Home',
         data() {
@@ -160,14 +179,18 @@
                 },
                 dialogVisible1: false,
                 dialogVisible2: false,
+                dialogVisible3: false,
                 searchlist: [],
+                logClass: this.$route.params.logClass,
+                limit1: true,
+                limit2: true
             };
         },
 
         methods: {
             toAnother(tab) {
                 if (tab.name == 'second') {
-                    this.$router.push('/dataset');
+                    this.$router.push({ name: 'Dataset', params: { logClass: this.logClass } });
                 }
             },
 
@@ -183,6 +206,32 @@
                 this.searchlist = caselist;
                 this.datastyle = 7;
                 this.dialogVisible2 = false;
+            },
+
+            deleteCase() {
+                this.$confirm('将永久删除该算例信息与仿真结果, 是否继续?',{
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let index = this.viewIndex;
+                    let style = index.style;
+                    const path = 'http://localhost:5000/change/delete';
+                    axios.post(path, index)
+                        .then(() => {
+                            this.reset();
+                            this.$nextTick(() => {
+                                this.datastyle = style;
+                            })
+                        })
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    
+                });
+                
             }
         },
 
@@ -195,6 +244,13 @@
                     case 3: return ("平顶盖");
                     case 7: return ("检索结果");
                 }
+            },
+            users() {
+                if (this.logClass == 1) {
+                    return 'User'
+                } else if (this.logClass == 0) {
+                    return 'Admin'
+                }
             }
         },
 
@@ -206,6 +262,17 @@
                         index: ''
                     }
                 }
+            },
+            logClass: {
+                handler(newstyle, oldstyle) {
+                    if (newstyle == 0) {
+                        this.limit1 = false;
+                        this.limit2 = false;
+                    } else if (newstyle == 1) {
+                        this.limit1 = false;
+                    }
+                },
+                immediate:true
             }
         },
 
@@ -214,7 +281,8 @@
             ViewCase,
             Search,
             SearchCase,
-            CreateCase
+            CreateCase,
+            DelectCase
         },
 
     }

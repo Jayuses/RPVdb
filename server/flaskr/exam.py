@@ -1,2 +1,2 @@
-﻿t = 'FROM tbCasesStruc1'
-print(t[-6:-1])
+﻿for i in [1,2,3]:
+    print(i)

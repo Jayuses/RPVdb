@@ -9,7 +9,8 @@ def create_app(test_config=None):
     #应用配置
     app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path,'RPV-Simulation.mdb'),
+        DATABASE1=os.path.join(app.instance_path,'RPV-Simulation.mdb'),
+        DATABASE2=os.path.join(app.instance_path,'Users.mdb'),
         )
 
     #使用flask-CORS扩展，允许全局跨域
@@ -40,5 +41,13 @@ def create_app(test_config=None):
     #注册'search'蓝图
     from . import search
     app.register_blueprint(search.bp)
+
+    #注册'create'蓝图
+    from . import create
+    app.register_blueprint(create.bp)
+
+    #注册'change'蓝图
+    from . import change
+    app.register_blueprint(change.bp)
 
     return app
