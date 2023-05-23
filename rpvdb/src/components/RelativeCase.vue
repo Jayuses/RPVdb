@@ -2,10 +2,12 @@
     <div>
         <el-table :data="CaseList"
                   style="width: 100%"
-                  height="430px">
+                  height="40em"
+                  align="center">
             <el-table-column prop="case"
                              label="相关案例"
-                             width="150">
+                             width="220"
+                             align="center">
             </el-table-column>
         </el-table>
     </div>

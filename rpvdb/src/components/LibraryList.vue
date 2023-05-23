@@ -4,12 +4,12 @@
                   :row-class-name="tableRowClassName"
                   :row-style="selectedstyle"
                   :show-header="false"
-                  style="width: 95%;line-height:10px;margin-left:10px"
-                  height="430px"
-                  @cell-dblclick="detail">
+                  style="width: 95%;line-height:10%;margin-left:5%"
+                  height="40em"
+                  @cell-click="detail">
             <el-table-column prop="ID"
                              align="center"
-                             width="170">
+                             width="200%">
             </el-table-column>
         </el-table>
     </div>
@@ -35,7 +35,7 @@
 
         methods: {
             getList() {
-                //»ñÈ¡Êý¾ÝÁÐ±í
+                //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
                 const path = 'http://localhost:5000/getdata/list';
                 axios.get(path)
                     .then((res) => {
@@ -48,7 +48,7 @@
             },
 
             postReq(payload) {
-                //·¢ËÍÊý¾ÝÇëÇó£¬Êý¾ÝÀàÐÍÓÉdataStyle¿ØÖÆ
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½dataStyleï¿½ï¿½ï¿½ï¿½
                 const path = 'http://localhost:5000/getdata/list';
                 axios.post(path, payload)
                     .then(() => {

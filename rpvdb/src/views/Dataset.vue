@@ -31,7 +31,8 @@
                             <el-col :span="4" style="border-right: 1px solid #C0C0C0">
                                 <p style="padding:0;margin:0;">
                                     <el-button type="text" icon="el-icon-plus" style="font-size:30px;"
-                                               :disabled="limit2"></el-button>
+                                               :disabled="limit2 || viewIndex.index=='' "
+                                               @click="operation='create'"></el-button>
                                     <span style="font-size: 14px; color:cadetblue">
                                         &nbsp;&nbsp;&nbsp;&nbsp;新建
                                     </span>
@@ -40,7 +41,8 @@
                             <el-col :span="4" style="border-right: 1px solid #C0C0C0">
                                 <p style="padding:0;margin:0;">
                                     <el-button type="text" icon="el-icon-delete" style="font-size:30px;"
-                                               :disabled="limit2"></el-button>
+                                               :disabled="limit2 || viewIndex.index=='' "
+                                               @click="operation='delete'"></el-button>
                                     <span style="font-size: 14px; color:cadetblue">
                                         &nbsp;&nbsp;&nbsp;&nbsp;删除
                                     </span>
@@ -49,14 +51,24 @@
                         </el-tab-pane>
                     </el-tabs>
                     <div class="user">
-                        <el-avatar size="medium" shape="square">{{ users }}</el-avatar>
+                        <el-popover trigger="hover">
+                            <template #reference>
+                                <el-avatar shape="square" size="medium" fit="fill" :src="url"></el-avatar>
+                            </template>
+                            <template #default>
+                                <p class="user-name" >{{logName}}({{users}})</p>
+                                <div style="position:relative; margin-left:30%">
+                                    <el-button margin-left="50%" size="small" type="primary" @click="logoff">注销</el-button>
+                                </div>
+                            </template>
+                        </el-popover>
                     </div>
                 </div>
             </el-header>
             <br /><br /><br /><br />
             <el-container>
-                <el-aside width="200px" style="border-right: 2px solid #C0C0C0">
-                    <div style="height:470px">
+                <el-aside width="12%" style="border-right: 2px solid #C0C0C0">
+                    <div style="height:40em">
                         <p style="margin:0;line-height:16px;text-align:right">
                             <span class="list-title">
                                 {{showtitle}}
@@ -80,11 +92,15 @@
                 <el-main>
                     <el-row>
                         <el-col :span="20">
-                            <div style="height:400px" v-show="viewIndex.index">
+                            <div v-show="viewIndex.index">
                                 <div v-if="datastyle==4">
                                     <br />
                                 </div>
-                                <Geom :geomIndex="getIndex" v-if="datastyle==4"></Geom>
+                                <Geom v-if="datastyle==4" 
+                                      :geomIndex="getIndex" 
+                                      :operation="operation" 
+                                      :logClass="getClass"
+                                      @resetOperate="operation=$event"></Geom>
                                 <MaterDetail :materIndex="viewIndex.index" v-if="datastyle==5"></MaterDetail>
                                 <Load :loadIndex="getIndex" v-if="datastyle==6"></Load>
                             </div>
@@ -163,8 +179,12 @@
     }
     .user {
         position: absolute;
-        right: 60px;
-        top: 10px;
+        right: 2%;
+        top: 1%;
+    }
+    .user-name{
+        font-family:'Times New Roman', Times, serif;
+        font-weight:bolder;
     }
 </style>
 
@@ -182,21 +202,27 @@ export default {
             datastyle: 0,
             viewIndex: { index: '', },
             logClass: this.$route.params.logClass,
+            logName: this.$route.params.logName,
             limit1: true,
-            limit2: true
+            limit2: true,
+            url: require('../../public/R.jpg'),
+            operation: 'check'
         };
     },
 
     methods: {
         toAnother(tab) {
             if (tab.name == 'first') {
-                this.$router.push('/home');
+                this.$router.push({name:'Home', params: { logClass: this.logClass, logName: this.logName }});
             }
         },
 
         beforeLeaveTab(activeName, oldName) {
             return false
         },
+        logoff(){
+                this.$router.push({ name: 'Login' });
+        }
     },
 
     computed: {
@@ -215,11 +241,14 @@ export default {
             }
         },
         users() {
-            if (this.logClass == 1) {
-                return 'User'
-            } else if (this.logClass == 0) {
-                return 'Admin'
-            }
+                if (this.logClass == 1) {
+                    return '普通用户'
+                } else if (this.logClass == 0) {
+                    return '管理员'
+                }
+        },
+        getClass(){
+            return this.$route.params.logClass
         }
     },
 
@@ -239,6 +268,10 @@ export default {
                 }
             },
             immediate: true
+        },
+        $route(to,from){
+            this.logClass = this.$route.params.logClass;
+            this.logName = this.$route.params.logName;
         }
     },
 

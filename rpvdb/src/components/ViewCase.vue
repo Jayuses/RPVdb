@@ -1,11 +1,11 @@
 ﻿<template>
     <div>
-        <el-tabs v-model="activeName">
+        <el-tabs v-model="activeName" class="tabs-main">
             <el-tab-pane label="仿真参数" name="first">
                 <div>
-                    <el-tabs :tab-position="tabPosition" style="height: 390px;">
+                    <el-tabs :tab-position="tabPosition" style="height: 100%;">
                         <el-tab-pane class="righttab" label="结构参数">
-                            <Geom :geomIndex="geomIndex"></Geom>
+                            <Geom :geomIndex="geomIndex" :logClass="logClass" :operation="operation"></Geom>
                         </el-tab-pane>
                         <el-tab-pane class="righttab" label="结构材料">
                             <Material :materInfor="materInfor"></Material>
@@ -27,6 +27,9 @@
     .righttab {
         padding-right: 0;
     }
+    .tabs-main{
+        height: 100%;
+    }
     
 </style>
 
@@ -47,7 +50,9 @@
                 dialogVisible: false,
                 materInfor: {},
                 loadIndex: {},
-                geomIndex: {}
+                geomIndex: {},
+                logClass: 1,
+                operation: 'check'
             };
         },
 

@@ -9,7 +9,7 @@ from flask import (
 from flaskr.db import get_db
 from flask import Flask, jsonify
 
-casedata = {}
+casedata = {"list":None}
 
 bp = Blueprint('search', __name__, url_prefix='/search')
 

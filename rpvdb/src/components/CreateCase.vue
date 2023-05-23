@@ -74,8 +74,8 @@
             </el-upload>
         </div>
         <div class="create-case" v-if="active==3">
-            <p style="color:darkgreen">参考格式：SPSX-XXX-X-XXXX</p>
-            <p style="color:darkgreen">其中（自左向右）：SPSX表示顶盖类型；XXX表示案例来源；X表示工况类型；XXXX为自定义编号</p>
+            <p style="color:darkgreen">参考格式:SPSX-XXX-X-XXXX</p>
+            <p style="color:darkgreen">其中(自左向右):SPSX表示顶盖类型;XXX表示案例来源;X表示工况类型;XXXX为自定义编号</p>
             <p style="margin-top: 40px;">
                 <span style="margin-right:20px;font-weight:800">
                     案例命名
@@ -129,8 +129,6 @@
     .create-case{
         height:250px;
         margin-top:30px;
-    }
-    .upload-demo{
     }
 </style>
 

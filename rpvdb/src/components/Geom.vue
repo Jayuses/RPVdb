@@ -9,15 +9,15 @@
                     <el-image :src="dingGai_url"></el-image>
                 </el-dialog>
             </span>
-            <span style="margin-left:30px;">结构参数库</span>
-            <span style="margin-left:30px;">{{geomIndex.index}}</span>
+            <span style="margin-left:7%;">结构参数库</span>
+            <span style="margin-left:10%;">{{geomIndex.index}}</span>
         </p>
         <el-row>
             <el-col :span="10">
                 <div class="p-para">
                     <el-tabs tab-position="bottom" class="p-para">
                         <el-tab-pane label="顶盖" >
-                            <div class="tab-content">
+                            <div class="tab-content" v-if="logClass==1">
                                 <p>D1 = {{geomData.D1}} mm</p>
                                 <p>D2 = {{geomData.D2}} mm</p>
                                 <p>D3 = {{geomData.D3}} mm</p>
@@ -33,9 +33,25 @@
                                 <p>m = {{geomData.m}} (螺栓个数)</p>
                                 <p>n = {{geomData.n}} (螺栓个数)</p>
                             </div>
+                            <div class="tab-content" v-if="logClass==0">
+                                <p>D1 = <input type="number" v-model="geomData.D1" placeholder="geomData.D1" style="width:6em"> mm</p>
+                                <p>D2 = <input type="number" v-model="geomData.D2" placeholder="geomData.D2" style="width:6em"> mm</p>
+                                <p>D3 = <input type="number" v-model="geomData.D3" placeholder="geomData.D3" style="width:6em"> mm</p>
+                                <p>D4 = <input type="number" v-model="geomData.D4" placeholder="geomData.D4" style="width:6em"> mm</p>
+                                <p>D5 = <input type="number" v-model="geomData.D5" placeholder="geomData.D5" style="width:6em"> mm</p>
+                                <p>D6 = <input type="number" v-model="geomData.D6" placeholder="geomData.D6" style="width:6em"> mm</p>
+                                <p>R1 = <input type="number" v-model="geomData.R1" placeholder="geomData.R1" style="width:6em"> mm</p>
+                                <p>SR2 = <input type="number" v-model="geomData.SR2" placeholder="geomData.SR2" style="width:6em"> mm</p>
+                                <p>R3 = <input type="number" v-model="geomData.R3" placeholder="geomData.R3" style="width:6em"> mm</p>
+                                <p>h1 = <input type="number" v-model="geomData.h1" placeholder="geomData.h1" style="width:6em"> mm</p>
+                                <p>h2 = <input type="number" v-model="geomData.h2" placeholder="geomData.h2" style="width:6em"> mm</p>
+                                <p>t1 = <input type="number" v-model="geomData.t1" placeholder="geomData.t1" style="width:6em"> mm</p>
+                                <p>m = <input type="number" v-model="geomData.m" placeholder="geomData.m" style="width:6em"> (螺栓个数)</p>
+                                <p>n = <input type="number" v-model="geomData.n" placeholder="geomData.n" style="width:6em"> (螺栓个数)</p>
+                            </div>
                         </el-tab-pane>
                         <el-tab-pane label="筒体">
-                            <div class="tab-content">
+                            <div class="tab-content" v-if="logClass==1">
                                 <p>D7 = {{geomData.D7}} mm</p>
                                 <p>D8 = {{geomData.D8}} mm</p>
                                 <p>D9 = {{geomData.D9}} mm</p>
@@ -44,12 +60,24 @@
                                 <p>h4 = {{geomData.h4}} mm</p>
                                 <p>h5 = {{geomData.h5}} mm</p>
                                 <p>R4 = {{geomData.R4}} mm</p>
-                                <p>&#952 = {{geomData.θ}} &deg;</p>
+                                <p>θ = {{geomData.θ}} &deg;</p>
                                 <p>t2 = {{geomData.t2}} mm</p>
+                            </div>
+                            <div class="tab-content" v-if="logClass==0">
+                                <p>D7 = <input type="number" v-model="geomData.D7" placeholder="geomData.D7" style="width:6em"> mm</p>
+                                <p>D8 = <input type="number" v-model="geomData.D8" placeholder="geomData.D8" style="width:6em"> mm</p>
+                                <p>D9 = <input type="numbert" v-model="geomData.D9" placeholder="geomData.D9" style="width:6em"> mm</p>
+                                <p>D10 = <input type="number" v-model="geomData.D10" placeholder="geomData.D10" style="width:6em"> mm</p>
+                                <p>h3 = <input type="numbert" v-model="geomData.h3" placeholder="geomData.h3" style="width:6em"> mm</p>
+                                <p>h4 = <input type="number" v-model="geomData.h4" placeholder="geomData.h4" style="width:6em"> mm</p>
+                                <p>h5 = <input type="number" v-model="geomData.h5" placeholder="geomData.h5" style="width:6em"> mm</p>
+                                <p>R4 = <input type="number" v-model="geomData.R4" placeholder="geomData.R4" style="width:6em"> mm</p>
+                                <p>θ = <input type="number" v-model="geomData.θ" placeholder="geomData.θ" style="width:6em"> &deg;</p>
+                                <p>t2 = <input type="number" v-model="geomData.t2" placeholder="geomData.t2" style="width:6em"> mm</p>
                             </div>
                         </el-tab-pane>
                         <el-tab-pane label="密封面">
-                            <div class="tab-content">
+                            <div class="tab-content" v-if="logClass==1">
                                 <p>D11 = {{geomData.D11}} mm</p>
                                 <p>D12 = {{geomData.D12}} mm</p>
                                 <p>D13 = {{geomData.D13}} mm</p>
@@ -61,13 +89,31 @@
                                 <p>L1 = {{geomData.L1}} mm</p>
                                 <p>L2 = {{geomData.L2}} mm</p>
                             </div>
+                            <div class="tab-content" v-if="logClass==0">
+                                <p>D11 = <input type="number" v-model="geomData.D11" placeholder="geomData.D11" style="width:6em"> mm</p>
+                                <p>D12 = <input type="number" v-model="geomData.D12" placeholder="geomData.D12" style="width:6em"> mm</p>
+                                <p>D13 = <input type="number" v-model="geomData.D13" placeholder="geomData.D13" style="width:6em"> mm</p>
+                                <p>D14 = <input type="number" v-model="geomData.D14" placeholder="geomData.D14" style="width:6em"> mm</p>
+                                <p>D15 = <input type="number" v-model="geomData.D15" placeholder="geomData.D15" style="width:6em"> mm</p>
+                                <p>D16 = <input type="number" v-model="geomData.D16" placeholder="geomData.D16" style="width:6em"> mm</p>
+                                <p>D17 = <input type="number" v-model="geomData.D17" placeholder="geomData.D17" style="width:6em"> mm</p>
+                                <p>h6 = <input type="number" v-model="geomData.h6" placeholder="geomData.h6" style="width:6em"> mm</p>
+                                <p>L1 = <input type="number" v-model="geomData.L1" placeholder="geomData.L1" style="width:6em"> mm</p>
+                                <p>L2 = <input type="number" v-model="geomData.L2" placeholder="geomData.L2" style="width:6em"> mm</p>
+                            </div>
                         </el-tab-pane>
                         <el-tab-pane label="螺栓连接">
-                            <div class="tab-content">
+                            <div class="tab-content" v-if="logClass==1">
                                 <p>D18 = {{geomData.D18}} mm</p>
                                 <p>D19 = {{geomData.D19}} mm</p>
                                 <p>h7 = {{geomData.h7}} mm</p>
                                 <p>h8 = {{geomData.h8}} mm</p>
+                            </div>
+                            <div class="tab-content" v-if="logClass==0">
+                                <p>D18 = <input type="number" v-model="geomData.D18" placeholder="geomData.D18" style="width:6em"> mm</p>
+                                <p>D19 = <input type="number" v-model="geomData.D19" placeholder="geomData.D19" style="width:6em"> mm</p>
+                                <p>h7 = <input type="number" v-model="geomData.h7" placeholder="geomData.h7" style="width:6em"> mm</p>
+                                <p>h8 = <input type="number" v-model="geomData.h8" placeholder="geomData.h8" style="width:6em"> mm</p>
                             </div>
                         </el-tab-pane>
                     </el-tabs>
@@ -84,6 +130,19 @@
                 </el-tabs>
             </el-col>
         </el-row>
+        <el-dialog  title="新建或修改"
+                    :visible.sync="createDialog"
+                    width="30%"
+                    :close-on-click-modal="closeModal"
+                    :showClose="false">
+            <p style="color:darkgreen">保持原名进行修改或为新结构尺寸命名</p>
+            <el-input v-model="geomData.SG_ID" placeholder="geomData.SG_ID"></el-input>
+            <p style="color:green" v-if="status==1">{{CaseID}}新建/修改成功</p>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="resetOperation">关闭</el-button>
+                <el-button type="primary" @click="createGeom">新建/修改</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -118,17 +177,17 @@
         padding:0;
     }
     .struc-image {
-        height: 280px;
+        height: 30em;
     }
     .tab-content {
-        height: 290px;
+        height: 28em;
         padding-left:100px;
         display: table-cell;
         vertical-align: middle;
     }
     .tab-pic {
-        height: 280px;
-        padding-top:10px;
+        height: 27em;
+        padding-top:2%;
         display: table-cell;
         vertical-align: middle;
     }
@@ -136,17 +195,36 @@
 
 <script>
     import axios from 'axios';
+    import { number } from 'echarts/core';
     export default {
         name: 'Geom',
-        props: { 'geomIndex': Object },
+        props: { 'geomIndex': Object, 'operation': String, 'logClass': Number },
         data() {
             return {
                 geomData: {},
                 dialogVisible: false,
+                createDialog: false,
+                closeModal:false,
+                status:0
             }
         },
 
         methods: {
+            async getList(url) {
+                //获取数据列表
+                const path = 'http://localhost:5000/' + url;
+                let options = [];
+                await axios.get(path)
+                    .then((res) => {
+                        options = res.data;
+                    })
+                /*.catch((error) => {
+                    // eslint-disable-next-line
+                    console.error(error);
+                });*/
+                return options;
+            },
+
             getData() {
                 //获取结构参数
                 const path = 'http://localhost:5000/getdata/geom';
@@ -173,6 +251,26 @@
                         this.getData();
                     });
             },
+
+            createGeom(){
+                var geom = {
+                    newGeom:this.geomData,
+                    style:this.geomIndex.style
+                }                
+                const path = 'http://localhost:5000/create/geom';
+                axios.post(path, geom)
+                    .then(() => {
+                        this.getList('create/geom').then(res => {
+                            this.status = res;
+                        })
+                    })
+            },
+
+            resetOperation(){
+                this.createDialog = false;
+                this.status=0;
+                this.$emit('resetOperate','check');
+            }
         },
 
         computed: {
@@ -207,7 +305,7 @@
                     return require('../assets/image/path2/内带平台球形顶盖_整体结构图.png');
                 else if (this.geomIndex.style == 3)
                     return require('../assets/image/path3/平顶盖-整体结构.png');
-            }
+            },
         },
         
         watch: {
@@ -217,6 +315,15 @@
                 },
                 deep: true,
                 immediate:true
+            },
+            operation:{
+                handler(newindex, oldindex) {
+                    if(newindex=='create'){
+                        this.createDialog = true;
+                    }else if(newindex=='check'){
+                        this.$emit('resetOperate','check');
+                    }
+                },
             }
         },
     };

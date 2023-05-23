@@ -13,7 +13,7 @@ bp = Blueprint('getdata', __name__, url_prefix='/getdata')
 #全局辅助变量
 datalist = {}
 casedata = {}
-detaildata = {}
+detaildata = {"geom":None,"mater":None,"load":None,"result":None}
 #连接数据库
 
 @bp.route('/list',methods=['GET','POST'])

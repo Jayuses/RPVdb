@@ -27,10 +27,10 @@
                 </th>
                 <th rowspan="2">顶盖法兰</th>
                 <td>弹簧回弹力：{{loadData.loadCon.SR1}}&nbsp;N</td>
-                <td>OBE横向载荷：{{loadData.loadCon.OBET1}}&nbsp;N</td>
+                <td>OBE横向载荷:{{loadData.loadCon.OBET1}}&nbsp;N</td>
             </tr>
             <tr>
-                <td colspan="2">OBE垂向载荷：{{loadData.loadCon.OBEA1}}&nbsp;N</td>
+                <td colspan="2">OBE垂向载荷:{{loadData.loadCon.OBEA1}}&nbsp;N</td>
             </tr>
             <tr>
                 <th rowspan="3">筒体法兰</th>
@@ -39,10 +39,10 @@
             </tr>
             <tr>
                 <td>弹簧回弹力：{{loadData.loadCon.SR2}}&nbsp;N</td>
-                <td>OBE横向载荷：{{loadData.loadCon.OBET2}}&nbsp;N</td>
+                <td>OBE横向载荷:{{loadData.loadCon.OBET2}}&nbsp;N</td>
             </tr>
             <tr>
-                <td colspan="2">OBE垂向载荷：{{loadData.loadCon.OBEA2}}&nbsp;N</td>
+                <td colspan="2">OBE垂向载荷:{{loadData.loadCon.OBEA2}}&nbsp;N</td>
             </tr>
             <tr>
                 <th>垫片</th>

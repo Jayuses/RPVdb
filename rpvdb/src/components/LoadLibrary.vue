@@ -11,11 +11,11 @@
                           :row-class-name="tableRowClassName"
                           :row-style="selectedstyle"
                           :show-header="false"
-                          style="width: 95%;line-height:10px;margin-left:10px"
-                          @cell-dblclick="detail">
+                          style="width: 95%;line-height:10%;margin-left:5%"
+                          @cell-click="detail">
                     <el-table-column prop="ID"
                                      align="center"
-                                     width="170px">
+                                     width="200%">
                     </el-table-column>
                 </el-table>
             </el-collapse-item>
@@ -29,11 +29,11 @@
                           :row-class-name="tableRowClassName"
                           :row-style="selectedstyle"
                           :show-header="false"
-                          style="width: 95%;line-height:10px;margin-left:10px"
-                          @cell-dblclick="detail">
+                          style="width: 95%;line-height:10%;margin-left:5%"
+                          @cell-click="detail">
                     <el-table-column prop="ID"
                                      align="center"
-                                     width="170px">
+                                     width="200%">
                     </el-table-column>
                 </el-table>
             </el-collapse-item>
@@ -47,11 +47,11 @@
                           :row-class-name="tableRowClassName"
                           :row-style="selectedstyle"
                           :show-header="false"
-                          style="width: 95%;line-height:10px;margin-left:10px"
-                          @cell-dblclick="detail">
+                          style="width: 95%;line-height:10%;margin-left:5%"
+                          @cell-click="detail">
                     <el-table-column prop="ID"
                                      align="center"
-                                     width="170px">
+                                     width="200%">
                     </el-table-column>
                 </el-table>
             </el-collapse-item>

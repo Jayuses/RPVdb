@@ -33,7 +33,8 @@
                                                    icon="el-icon-plus"
                                                    style="font-size:30px;"
                                                    @click="dialogVisible1=true"
-                                                   :disabled="limit2"></el-button>
+                                                   :disabled="limit2"
+                                                   title="create"></el-button>
                                         <span style="font-size: 14px; color:cadetblue">
                                             &nbsp;&nbsp;&nbsp;&nbsp;新建
                                         </span>
@@ -49,7 +50,8 @@
                                         <el-button type="text" icon="el-icon-delete"
                                                    style="font-size:30px;"
                                                    :disabled="viewIndex.index=='' || limit2"
-                                                   @click="deleteCase"></el-button>
+                                                   @click="deleteCase"
+                                                   title="delete"></el-button>
                                         <span style="font-size: 14px; color:cadetblue">
                                             &nbsp;&nbsp;&nbsp;&nbsp;删除
                                         </span>
@@ -77,14 +79,24 @@
                         </el-tab-pane>
                     </el-tabs>
                     <div class="user">
-                        <el-avatar size="medium" shape="square">{{ users }}</el-avatar>
+                        <el-popover trigger="hover">
+                            <template #reference>
+                                <el-avatar shape="square" size="medium" fit="fill" :src="url"></el-avatar>
+                            </template>
+                            <template #default>
+                                <p class="user-name" >{{logName}}({{users}})</p>
+                                <div style="position:relative; margin-left:30%">
+                                    <el-button margin-left="50%" size="small" type="primary" @click="logoff">注销</el-button>
+                                </div>                       
+                            </template>
+                        </el-popover>
                     </div>
                 </div>
             </el-header>
             <br /><br /><br /><br />
             <el-container>
-                <el-aside width="200px" style="border-right: 2px solid #C0C0C0">
-                    <div style="height:470px">
+                <el-aside width="12%" style="border-right: 2px solid #C0C0C0">
+                    <div style="height:40em">
                         <p style="margin:0;line-height:16px;text-align:right">
                             <span class="list-title">
                                 {{showtitle}}
@@ -97,7 +109,8 @@
                         </p>
                         <ViewAside :dataStyle="datastyle" v-if="datastyle && datastyle!=7"
                                    @show-detail="viewIndex=$event"></ViewAside>
-                        <SearchCase :caselist="searchlist" v-if="datastyle==7" @show-detail="viewIndex=$event"></SearchCase>
+                        <SearchCase :caselist="searchlist" v-if="datastyle==7" 
+                                    @show-detail="viewIndex=$event"></SearchCase>
                     </div>
                 </el-aside>
                 <el-main>
@@ -112,14 +125,15 @@
 <style>
     .el-header {
         text-align: center;
-        margin-left: 21px;
-        margin-right: 21px;
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top: 2%;
         line-height: 100%;
         float: right;
         padding: 0;
     }
     .el-aside {
-        margin-left: 21px;
+        margin-left: 5%;
         text-align: center;
         line-height: 10px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
@@ -155,8 +169,13 @@
     }
     .user{
         position:absolute;
-        right:60px;
-        top:10px;
+        margin-right: 2%;
+        margin-top: 2%;
+    }
+    .user-name{
+        font-family:'Times New Roman', Times, serif;
+        font-weight:bolder;
+        text-align: center;
     }
 </style>
 
@@ -182,15 +201,17 @@
                 dialogVisible3: false,
                 searchlist: [],
                 logClass: this.$route.params.logClass,
+                logName: this.$route.params.logName,
                 limit1: true,
-                limit2: true
+                limit2: true,
+                url: require('../../public/R.jpg')
             };
         },
 
         methods: {
             toAnother(tab) {
                 if (tab.name == 'second') {
-                    this.$router.push({ name: 'Dataset', params: { logClass: this.logClass } });
+                    this.$router.push({ name: 'Dataset', params: { logClass: this.logClass, logName: this.logName } });
                 }
             },
 
@@ -232,6 +253,10 @@
                     
                 });
                 
+            },
+
+            logoff(){
+                this.$router.push({ name: 'Login' });
             }
         },
 
@@ -247,9 +272,9 @@
             },
             users() {
                 if (this.logClass == 1) {
-                    return 'User'
+                    return '普通用户'
                 } else if (this.logClass == 0) {
-                    return 'Admin'
+                    return '管理员'
                 }
             }
         },
@@ -273,6 +298,10 @@
                     }
                 },
                 immediate:true
+            },
+            $route(to,from){
+                this.logClass = this.$route.params.logClass;
+                this.logName = this.$route.params.logName;
             }
         },
 

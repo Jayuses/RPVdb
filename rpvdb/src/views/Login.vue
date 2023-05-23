@@ -1,7 +1,7 @@
 ﻿<template>
     <div class="login-container">
         <h4>用户登录</h4>
-        <el-form :model="logForm" status-icon  :rules="rules" ref="logForm" label-width="100px" class="demo-ruleForm">
+        <el-form :model="logForm" status-icon  :rules="rules" ref="logForm" label-width="8em" class="demo-ruleForm">
             <el-form-item label="用户名" prop="username">
                 <el-input type="text" v-model="logForm.username" autocomplete="off"></el-input>
             </el-form-item>
@@ -20,23 +20,27 @@
     .login-container {
         box-shadow: 0 8px 16px rgba(0, 0, 0, .12), 0 0 24px rgba(0, 0, 0, .04);
         position:absolute;
-        top: 25%;
+        top: 30%;
         bottom: 30%;
         left: 35%;
         right: 35%;
+        background-image: url('../../public/图片1.jpg');
+        background-repeat: no-repeat;
+        background-size: 50%;
+        background-position: center;
     }
     h4{
-        margin-top:10%;
+        margin-top:20%;
     }
     .el-form-item__label{
-        max-width:70px;
-        margin-left:15px;
+        max-width:5em;
+        margin-left:1em;
     }
     form {
         margin-right: 10%;
     }
     .button-item{
-        margin-left:-60px;
+        margin-left: -3em;
     }
 </style>
 
@@ -81,6 +85,8 @@
                             console.error(error);
                         });
                 }
+
+
             };
             return {
                 logForm: {
@@ -102,7 +108,7 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.$router.push({ name: 'Home', params: { logClass: this.logClass } });
+                        this.$router.push({ name: 'Home', params: { logClass: this.logClass,logName:this.logForm.username} });
                     } else {
                         console.log('error submit!!');
                         return false;

@@ -3,12 +3,12 @@
               :row-class-name="tableRowClassName"
               :row-style="selectedstyle"
               :show-header="false"
-              style="width: 95%;line-height:10px;margin-left:10px"
-              height="430px"
-              @cell-dblclick="detail">
+              style="width: 95%;line-height:10%;margin-left:5%"
+              height="40em"
+              @cell-click="detail">
         <el-table-column prop="CaseID"
                          align="center"
-                         width="170">
+                         width="200%">
         </el-table-column>
     </el-table>
 </template>

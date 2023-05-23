@@ -103,7 +103,7 @@
 
 <style>
     .re-chart{
-        height:60%;
+        height:100%;
     }
 </style>
 
