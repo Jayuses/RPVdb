@@ -95,7 +95,7 @@
             </el-header>
             <br /><br /><br /><br />
             <el-container>
-                <el-aside width="12%" style="border-right: 2px solid #C0C0C0">
+                <el-aside width="13%" style="border-right: 2px solid #C0C0C0">
                     <div style="height:40em">
                         <p style="margin:0;line-height:16px;text-align:right">
                             <span class="list-title">
@@ -189,6 +189,7 @@
     import axios from 'axios';
     export default {
         name: 'Home',
+        inject:['reload'],
         data() {
             return {
                 datastyle: 0,
@@ -211,6 +212,7 @@
         methods: {
             toAnother(tab) {
                 if (tab.name == 'second') {
+                    this.reload();
                     this.$router.push({ name: 'Dataset', params: { logClass: this.logClass, logName: this.logName } });
                 }
             },
@@ -256,6 +258,7 @@
             },
 
             logoff(){
+                this.reload();
                 this.$router.push({ name: 'Login' });
             }
         },
@@ -313,6 +316,5 @@
             CreateCase,
             DelectCase
         },
-
     }
 </script>

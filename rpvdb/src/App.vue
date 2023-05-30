@@ -1,9 +1,9 @@
 ﻿<template>
     <div id="app">
         <keep-alive>
-            <router-view v-if="$route.meta.keepAlive && isRouterAlive"></router-view>
+            <router-view v-if="$route.meta.keepAlive && isRouterAlive" :key="key"></router-view>
         </keep-alive>
-            <router-view v-if="!$route.meta.keepAlive && isRouterAlive"></router-view>
+            <router-view v-if="!$route.meta.keepAlive && isRouterAlive" :key="key"></router-view>
     </div>
 </template>
 
@@ -38,5 +38,11 @@
                 })
             }
         },
+        computed:{
+            key() {
+                return this.$route.name !== undefined ? 
+                this.$route.name + +new Date(): this.$route + +new Date()
+            }
+        }
     }
 </script>

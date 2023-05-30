@@ -6,14 +6,14 @@ import functools
 from flask import (
     Blueprint, request
     )
-from flaskr.db import get_db
+from flaskr.db import get_db,get_users
 from flask import Flask, jsonify
 
 bp = Blueprint('getdata', __name__, url_prefix='/getdata')
 #全局辅助变量
-datalist = {}
+datalist = {'caselist':None}
 casedata = {}
-detaildata = {"geom":None,"mater":None,"load":None,"result":None}
+detaildata = {"geom":None,"mater":None,"load":None,"result":None,"admin":None,"users":None}
 #连接数据库
 
 @bp.route('/list',methods=['GET','POST'])
@@ -240,6 +240,21 @@ def get_result():
         db = get_db()
         cursor = db.cursor()
         detaildata['result'] = getResult(cursor,style,index)
+        cursor.close()
+    else:
+        response_data = detaildata['result']
+    return jsonify(response_data)
+
+@bp.route('/users',methods=['GET','POST'])
+def get_user():
+    '''获取用户信息'''
+    response_data = {'status':'defeat'}
+    des = [('name',0),('level',0)]
+    if request.method == 'POST':
+        db = get_users()
+        cursor = db.cursor()
+        userlist = cursor.execute('SELECT NAME,[LEVEL] FROM tbUser').fetchall()
+        detaildata['result'] = tup2dic(userlist,des)
         cursor.close()
     else:
         response_data = detaildata['result']

@@ -11,7 +11,7 @@
                             <Material :materInfor="materInfor"></Material>
                         </el-tab-pane>
                         <el-tab-pane class="righttab" label="加载工况">
-                            <Load :loadIndex="loadIndex"></Load>
+                            <Load :loadIndex="loadIndex" :logClass="logClass" :operation="operation"></Load>
                         </el-tab-pane>
                     </el-tabs>
                 </div>

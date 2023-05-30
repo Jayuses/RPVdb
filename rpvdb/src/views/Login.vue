@@ -48,6 +48,7 @@
     import axios from 'axios';
     export default {
         name: 'Login',
+        inject:['reload'],
         data() {
             //定义验证器 checkname,checkpass
             var checkname = (rule, value, callback) => {
@@ -108,6 +109,7 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
+                        this.reload();
                         this.$router.push({ name: 'Home', params: { logClass: this.logClass,logName:this.logForm.username} });
                     } else {
                         console.log('error submit!!');
@@ -119,6 +121,6 @@
                 this.$refs[formName].resetFields();
             }
 
-        }
+        },
     };
 </script>

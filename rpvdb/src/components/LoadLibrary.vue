@@ -7,7 +7,7 @@
                         瞬态工况
                     </p>
                 </template>
-                <el-table :data="tableData[0].LC"
+                <el-table :data="tableData1.LC"
                           :row-class-name="tableRowClassName"
                           :row-style="selectedstyle"
                           :show-header="false"
@@ -25,7 +25,7 @@
                         设计工况
                     </p>
                 </template>
-                <el-table :data="tableData[1].LC"
+                <el-table :data="tableData2.LC"
                           :row-class-name="tableRowClassName"
                           :row-style="selectedstyle"
                           :show-header="false"
@@ -43,7 +43,7 @@
                         水压试验工况
                     </p>
                 </template>
-                <el-table :data="tableData[2].LC"
+                <el-table :data="tableData3.LC"
                           :row-class-name="tableRowClassName"
                           :row-style="selectedstyle"
                           :show-header="false"
@@ -74,9 +74,12 @@
         props: { 'dataStyle': Number },
         data() {
             return {
-                tableData: {},
+                tableData1: {},
+                tableData2: {},
+                tableData3: {},
                 getIndex: '',
-                test:0
+                test:0,
+
             }
         },
 
@@ -87,7 +90,9 @@
                 axios.get(path)
                     .then((res) => {
                         this.test = 2;
-                        this.tableData = res.data.caselist;
+                        this.tableData1 = res.data.caselist[0];
+                        this.tableData2 = res.data.caselist[1];
+                        this.tableData3 = res.data.caselist[2];
                     })
                 /*.catch((error) => {
                     // eslint-disable-next-line

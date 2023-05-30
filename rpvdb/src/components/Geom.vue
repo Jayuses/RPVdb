@@ -266,6 +266,33 @@
                     })
             },
 
+            deleteGeom() {
+                this.$confirm('将永久删除该结构尺寸及相关案例, 是否继续?',{
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    var geom = {
+                        index: this.geomData.SG_ID,
+                        style: 4
+                    }
+                    const path = 'http://localhost:5000/change/delete';
+                    axios.post(path, geom)
+                        .then(() => {
+                            this.$nextTick(() => {
+                                this.$emit('resetOperate','check');
+                            })
+                        })
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$emit('resetOperate','check');
+                });
+                
+            },
+
             resetOperation(){
                 this.createDialog = false;
                 this.status=0;
@@ -322,6 +349,8 @@
                         this.createDialog = true;
                     }else if(newindex=='check'){
                         this.$emit('resetOperate','check');
+                    }else if(newindex=='delete'){
+                        this.deleteGeom();
                     }
                 },
             }

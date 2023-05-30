@@ -46,7 +46,6 @@
             },
 
             postReq(payload) {
-                //����������������������dataStyle����
                 const path = 'http://localhost:5000/getdata/list';
                 axios.post(path, payload)
                     .then(() => {

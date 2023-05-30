@@ -35,7 +35,6 @@
 
         methods: {
             getList() {
-                //��ȡ�����б�
                 const path = 'http://localhost:5000/getdata/list';
                 axios.get(path)
                     .then((res) => {
@@ -48,7 +47,6 @@
             },
 
             postReq(payload) {
-                //����������������������dataStyle����
                 const path = 'http://localhost:5000/getdata/list';
                 axios.post(path, payload)
                     .then(() => {

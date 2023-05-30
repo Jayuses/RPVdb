@@ -1,5 +1,5 @@
 ﻿<template>
-    <div>
+    <div style="margin-top:5em">
         <el-row class="materRow">
             <el-col :span="5" :offset="5">
                 <div class="materClomn1">
@@ -25,7 +25,10 @@
                         </el-button>
                         <el-dialog :visible.sync="dialogVisible"
                                    width="60%">
-                            <MaterDetail :materIndex="materIndex"></MaterDetail>
+                            <MaterDetail :materIndex="materIndex"
+                                         :operation="operation" 
+                                         :newData="materData" 
+                                         @propIndex="propIndex=$event"></MaterDetail>
                         </el-dialog>
                     </p>
                 </div>
@@ -80,6 +83,8 @@
                 materData: {},
                 materIndex: '',
                 dialogVisible:false,
+                operatrion:'check',
+                
             }
         },
 

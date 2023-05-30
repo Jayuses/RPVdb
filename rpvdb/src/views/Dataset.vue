@@ -48,6 +48,15 @@
                                     </span>
                                 </p>
                             </el-col>
+                            <el-col :span="4" v-show="!limit2">
+                                <p style="padding:0;margin:0;">
+                                    <el-button type="text" icon="el-icon-user" style="font-size:30px;"
+                                               @click="datastyle=7"></el-button>
+                                    <span style="font-size: 14px; color:cadetblue">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;用户管理
+                                    </span>
+                                </p>
+                            </el-col>
                         </el-tab-pane>
                     </el-tabs>
                     <div class="user">
@@ -67,14 +76,14 @@
             </el-header>
             <br /><br /><br /><br />
             <el-container>
-                <el-aside width="12%" style="border-right: 2px solid #C0C0C0">
+                <el-aside width="13%" style="border-right: 2px solid #C0C0C0">
                     <div style="height:40em">
-                        <p style="margin:0;line-height:16px;text-align:right">
+                        <p style="margin:0;line-height:16px;text-align:right;">
                             <span class="list-title">
                                 {{showtitle}}
                             </span>
                             <span>
-                                <el-button v-show="datastyle" type="text"
+                                <el-button v-show="datastyle && datastyle!=7" type="text"
                                            @click="datastyle=0" icon="el-icon-close"
                                            :class="[datastyle==2 ? 'title2':'title1']"></el-button>
                             </span>
@@ -101,12 +110,27 @@
                                       :operation="operation" 
                                       :logClass="getClass"
                                       @resetOperate="operation=$event"></Geom>
-                                <MaterDetail :materIndex="viewIndex.index" v-if="datastyle==5"></MaterDetail>
-                                <Load :loadIndex="getIndex" v-if="datastyle==6"></Load>
+                                <MaterDetail :materIndex="viewIndex.index"
+                                             v-if="datastyle==5"
+                                             :operation="operation" 
+                                             :newData="materData" 
+                                             @propIndex="propIndex=$event"
+                                             @resetOperate="operation=$event"
+                                             @materStatus="materStatus=$event"></MaterDetail>
+                                <Load :loadIndex="getIndex" 
+                                      v-if="datastyle==6" 
+                                      :operation="operation" 
+                                      :logClass="getClass" 
+                                      @resetOperate="operation=$event"></Load>
                             </div>
+                            <Users v-if="datastyle==7"
+                                   :dataStyle="datastyle"
+                                   @close='datastyle=$event'></Users>
                         </el-col>
                         <el-col :span="4" style="border-left: 2px solid #C0C0C0">
                             <div class="show-case" v-show="viewIndex.index">
+                                <MaterInput :propIndex="propIndex" @materTemp="materTemp=$event"
+                                            v-if="datastyle==5&&logClass==0" :materData="materItem"></MaterInput>
                                 <RelativeCase :CaseList="viewIndex.case"
                                               v-if="datastyle==4||datastyle==6"></RelativeCase>
                             </div>
@@ -158,6 +182,7 @@
         font-size: 14px;
         font-weight: 700;
         text-align: center;
+        margin-right: 1em;
     }
 
     .title1 {
@@ -195,8 +220,11 @@
     import Load from '../components/Load.vue'
     import RelativeCase from '../components/RelativeCase.vue'
     import Geom from '../components/Geom.vue'
+    import MaterInput from '../components/MaterInput.vue'
+    import Users from '../components/Users.vue'
 export default {
     name: 'Dataset',
+    inject:['reload'],
     data() {
         return {
             datastyle: 0,
@@ -206,13 +234,27 @@ export default {
             limit1: true,
             limit2: true,
             url: require('../../public/R.jpg'),
-            operation: 'check'
+            operation: 'check',
+            propIndex:'Density',
+            materTemp:[],
+            materData:{
+                Density:[{T: '',value:''}],
+                CTE:[{T: '',value:''}],
+                Capacity:[{T: '',value:''}],
+                Conductivity:[{T: '',value:''}],
+                Elastic:[{T: '',value:''}],
+                Possion:[{T: '',value:''}],
+                Yield:[{T: '',value:''}],
+                Tangent:[{T: '',value:''}]
+            },
+            materStatus:-1
         };
     },
 
     methods: {
         toAnother(tab) {
             if (tab.name == 'first') {
+                this.reload;
                 this.$router.push({name:'Home', params: { logClass: this.logClass, logName: this.logName }});
             }
         },
@@ -221,8 +263,23 @@ export default {
             return false
         },
         logoff(){
-                this.$router.push({ name: 'Login' });
-        }
+            this.reload();
+            this.$router.push({ name: 'Login' });
+        },
+        resetMater() {
+            this.propIndex = 'Density',
+            this.materTemp = [],
+            this.materData ={
+                Density:[{T: '',value:''}],
+                CTE:[{T: '',value:''}],
+                Capacity:[{T: '',value:''}],
+                Conductivity:[{T: '',value:''}],
+                Elastic:[{T: '',value:''}],
+                Possion:[{T: '',value:''}],
+                Yield:[{T: '',value:''}],
+                Tangent:[{T: '',value:''}]
+            }
+            },
     },
 
     computed: {
@@ -249,13 +306,16 @@ export default {
         },
         getClass(){
             return this.$route.params.logClass
+        },
+        materItem(){
+            return this.materData[this.propIndex]
         }
     },
 
     watch: {
         datastyle: {
             handler(newstyle, oldstyle) {
-                this.viewIndex = { index: '',}
+                this.viewIndex = { index: '',};
             }
         },
         logClass: {
@@ -269,6 +329,17 @@ export default {
             },
             immediate: true
         },
+        materTemp:{
+            handler(newdata, olddata) {
+                 this.materData[this.materTemp.index] = newdata.data;
+            },
+        },
+        materStatus:{
+            handler(newdata, olddata) {
+                 this.resetMater();
+                 this.materStatus = -1;
+            },
+        },
         $route(to,from){
             this.logClass = this.$route.params.logClass;
             this.logName = this.$route.params.logName;
@@ -281,7 +352,9 @@ export default {
         MaterDetail,
         Load,
         RelativeCase,
-        Geom
+        Geom,
+        MaterInput,
+        Users
     }
 }
 </script>

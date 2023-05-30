@@ -25,27 +25,25 @@ def delete():
         if style in [1,2,3]:
             table_name = 'tbCasesStruc' + str(style)
             delete(cursor,table_name,index,'CaseID')
-        #elif style == 4:
-        #    for item in del_list:
-        #        for index in [1,2,3]:
-        #            delete(cursor,'tbCasesStruc'+str(index),item,'SG_ID')
-        #            delete(cursor,'tbStrucGeom'+str(index),item,'SG_ID')
-        #elif style == 5:
-        #    for item in del_list:
-        #        delete(cursor,'tbCapacity',item,'Mater_ID')
-        #        delete(cursor,'tbConductivity',item,'Mater_ID')
-        #        delete(cursor,'tbCTE',item,'Mater_ID')
-        #        delete(cursor,'tbDensity',item,'Mater_ID')
-        #        delete(cursor,'tbPossion',item,'Mater_ID')
-        #        delete(cursor,'tbTangent',item,'Mater_ID')
-        #        delete(cursor,'tbYield',item,'Mater_ID')
-        #        delete(cursor,'tbElastic',item,'Mater_ID')
-        #elif style == 6:
-        #    for item in del_list:
-        #        for index in [1,2,3]:
-        #            delete(cursor,'tbCasesStruc'+str(index),item,'LD_ID')
-        #            delete(cursor,'tbLoadTP'+str(index),item,'LD_ID')
-        #            delete(cursor,'tbLoadCon'+str(index),item,'LD_ID')
+        elif style == 4:
+            for ind in [1,2,3]:
+                delete(cursor,'tbCasesStruc'+str(ind),index,'SG_ID')
+                delete(cursor,'tbStrucGeom'+str(ind),index,'SG_ID')
+        elif style == 5:
+            delete(cursor,'tbMater',index,'MaterID')
+            delete(cursor,'tbCapacity',index,'MaterID')
+            delete(cursor,'tbConductivity',index,'MaterID')
+            delete(cursor,'tbCTE',index,'MaterID')
+            delete(cursor,'tbDensity',index,'MaterID')
+            delete(cursor,'tbPossion',index,'MaterID')
+            delete(cursor,'tbTangent',index,'MaterID')
+            delete(cursor,'tbYield',index,'MaterID')
+            delete(cursor,'tbElastic',index,'MaterID')
+        elif style == 6:
+            for ind in [1,2,3]:
+                delete(cursor,'tbCasesStruc'+str(ind),index,'LC_ID')
+                delete(cursor,'tbLoadTP'+str(ind),index,'LC_ID')
+                delete(cursor,'tbLoadCon'+str(ind),index,'LC_ID')
         cursor.commit()
         cursor.close()
     return jsonify(response_status)
