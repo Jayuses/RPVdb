@@ -195,7 +195,6 @@
 
 <script>
     import axios from 'axios';
-    import { number } from 'echarts/core';
     export default {
         name: 'Geom',
         props: { 'geomIndex': Object, 'operation': String, 'logClass': Number },
@@ -302,19 +301,21 @@
 
         computed: {
             dingGai() {
+                let str = ''
                 if (this.geomIndex.style == 1)
-                    return ("球形顶盖");
+                    str = "球形顶盖";
                 else if (this.geomIndex.style == 2)
-                    return ("内带平台球形顶盖");
+                    str = "内带平台球形顶盖";
                 else if (this.geomIndex.style == 3)
-                    return ("平顶盖");
+                    str = "平顶盖";
+                return str;
             },
             dingGai_url() {
                 if (this.geomIndex.style == 1)
                     return require('../assets/image/path1/球形顶盖_密封结构_3D.jpg');
                 else if (this.geomIndex.style == 2)
                     return require('../assets/image/path2/内带平台球形顶盖_密封结构_3D.png');
-                else if (this.geomIndex.style == 3)
+                else 
                     return require('../assets/image/path3/平顶盖-密封结构_3D.png');
             },
             struc_url1() {
@@ -322,7 +323,7 @@
                     return require('../assets/image/path1/球形顶盖_整体结构图.png');
                 else if (this.geomIndex.style == 2)
                     return require('../assets/image/path2/内带平台球形顶盖_整体结构图.png');
-                else if (this.geomIndex.style == 3)
+                else 
                     return require('../assets/image/path3/平顶盖-整体结构.png');
             },
             struc_url2() {
@@ -330,21 +331,21 @@
                     return require('../assets/image/path1/球形顶盖_密封结构图.png');
                 else if (this.geomIndex.style == 2)
                     return require('../assets/image/path2/内带平台球形顶盖_整体结构图.png');
-                else if (this.geomIndex.style == 3)
+                else 
                     return require('../assets/image/path3/平顶盖-整体结构.png');
             },
         },
         
         watch: {
             geomIndex: {
-                handler(newindex, oldindex) {
+                handler(newindex,_) {
                     this.postIndex(newindex);
                 },
                 deep: true,
                 immediate:true
             },
             operation:{
-                handler(newindex, oldindex) {
+                handler(newindex,_) {
                     if(newindex=='create'){
                         this.createDialog = true;
                     }else if(newindex=='check'){

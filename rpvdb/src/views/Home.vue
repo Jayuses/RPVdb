@@ -185,7 +185,6 @@
     import Search from '../components/Search.vue';
     import SearchCase from '../components/SearchCase.vue';
     import CreateCase from '../components/CreateCase.vue';
-    import DelectCase from '../components/DelectCase.vue';
     import axios from 'axios';
     export default {
         name: 'Home',
@@ -270,7 +269,7 @@
                     case 1: return ("球形顶盖");
                     case 2: return ("内带平台球形顶盖");
                     case 3: return ("平顶盖");
-                    case 7: return ("检索结果");
+                    default: return ("");
                 }
             },
             users() {
@@ -278,6 +277,8 @@
                     return '普通用户'
                 } else if (this.logClass == 0) {
                     return '管理员'
+                }else{
+                    return 'ERROR'
                 }
             }
         },
@@ -314,7 +315,6 @@
             Search,
             SearchCase,
             CreateCase,
-            DelectCase
         },
     }
 </script>

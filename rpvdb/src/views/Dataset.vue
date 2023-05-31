@@ -289,6 +289,7 @@ export default {
                 case 4: return ("结构尺寸库");
                 case 5: return ("结构材料库");
                 case 6: return ("加载工况库");
+                default: return ('')
             }
         },
         getIndex() {
@@ -302,7 +303,7 @@ export default {
                     return '普通用户'
                 } else if (this.logClass == 0) {
                     return '管理员'
-                }
+                }else return 0;
         },
         getClass(){
             return this.$route.params.logClass

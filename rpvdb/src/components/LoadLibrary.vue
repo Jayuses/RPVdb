@@ -114,7 +114,7 @@
                     this.getList()
                 });*/
             },
-            selectedstyle({ row, rowIndex }) {
+            selectedstyle({ _, rowIndex }) {
                 if ((this.getIndex) === rowIndex) {
                     return {
                         "background-color": "#E0E0E0"
@@ -144,7 +144,7 @@
 
         watch: {
             dataStyle: {
-                handler(newstyle, oldstyle) {
+                handler(newstyle, _) {
                     let poststyle = { style: newstyle };
                     this.postReq(poststyle);
                 },

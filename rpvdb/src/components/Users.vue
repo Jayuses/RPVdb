@@ -142,7 +142,7 @@
                         password:'******',
                         level:data[i].level
                     })
-                };
+                }
                 return userData;
             },
             submit(){
@@ -172,7 +172,7 @@
                                     type: 'success'
                                 });
                             }
-                            let poststyle = { style: newstyle };
+                            let poststyle = { style: this.dataStyle };
                             this.postReq(poststyle);
                         })
                     })

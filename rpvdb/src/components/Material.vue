@@ -103,6 +103,7 @@
                     return require('../assets/image/path2/内带平台球形顶盖_材料选择示意图.png');
                 else if (this.materInfor.style == 3)
                     return require('../assets/image/path3/平顶盖-材料选择示意图.png');
+                else return 0
             }
         },
 

@@ -7,7 +7,7 @@ from flask import (
     Blueprint, request
     )
 from flaskr.db import get_db,get_users
-from flask import Flask, jsonify
+from flask import Flask, jsonify, g
 
 bp = Blueprint('getdata', __name__, url_prefix='/getdata')
 #全局辅助变量

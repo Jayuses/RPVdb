@@ -50,4 +50,7 @@ def create_app(test_config=None):
     from . import change
     app.register_blueprint(change.bp)
 
+    from . import db
+    db.init_app(app)
+
     return app

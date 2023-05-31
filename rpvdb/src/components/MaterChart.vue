@@ -87,7 +87,7 @@
 
         watch: {
             chartData: {
-                handler(newdata, olddata) {
+                handler(newdata,_) {
                     this.drawLine(newdata, this.materUnit)
                 },
                 deep: true,

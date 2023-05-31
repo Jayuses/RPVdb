@@ -272,7 +272,7 @@
                     p: ''
                 });
             },
-            handleDelete(index, row) {
+            handleDelete(index,row) {
                 if (index > 0) {
                     this.newTP.splice(index, 1);
                 }
@@ -285,7 +285,7 @@
                     return require('../assets/image/path1/球形顶盖-预紧单元.png')
                 else if (this.loadIndex.style == 2)
                     return require('../assets/image/path2/内带平台球形顶盖-螺栓预紧单元.png')
-                else if (this.loadIndex.style == 3)
+                else 
                     return require('../assets/image/path3/平顶盖-螺栓预紧单元.png')
             },
             url2() {
@@ -293,7 +293,7 @@
                     return require('../assets/image/path1/球形顶盖-机械载荷.png')
                 else if (this.loadIndex.style == 2)
                     return require('../assets/image/path2/内带平台球形顶盖-机械载荷.png')
-                else if (this.loadIndex.style == 3)
+                else
                     return require('../assets/image/path3/平顶盖-机械载荷.png')
             },
             url3() {
@@ -301,7 +301,7 @@
                     return require('../assets/image/path1/球形顶盖-垫片反力.png')
                 else if (this.loadIndex.style == 2)
                     return require('../assets/image/path2/内带平台球形顶盖-垫片反力.png')
-                else if (this.loadIndex.style == 3)
+                else
                     return require('../assets/image/path3/平顶盖-垫片反力.png')
             },
             url4() {
@@ -309,7 +309,7 @@
                     return require('../assets/image/path1/球形顶盖-温度加载示意图.png')
                 else if (this.loadIndex.style == 2)
                     return require('../assets/image/path2/内带平台球形顶盖-温度加载示意图.png')
-                else if (this.loadIndex.style == 3)
+                else
                     return require('../assets/image/path3/平顶盖-温度加载示意图.png')
             },
 
@@ -323,14 +323,14 @@
 
         watch: {
             loadIndex: {
-                handler(newindex, oldindex) {
+                handler(newindex,_) {
                     this.postIndex(newindex);
                 },
                 deep: true,
                 immediate:true
             },
             operation:{
-                handler(newindex, oldindex) {
+                handler(newindex,_) {
                     if(newindex=='create'){
                         this.createDialog = true;
                     }else if(newindex=='check'){
